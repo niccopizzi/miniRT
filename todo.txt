@@ -1,0 +1,33 @@
+LOT OF STUFF!
+
+
+understand projection matrix!
+brdf (for what?)
+restir (for what?)
+compile with --fast-math 
+Box-Muller transform to implement a normal distribution (Monte carlo simulation if used)
+caustic light!
+typedef float   t_vec4 __attribute__ ((vector_size (4 * sizeof(float))))for SIMD
+
+https://en.algorithmica.org/hpc/simd/intrinsics/
+
+https://berthub.eu/gcc-simd/fp-simd-builtins.html
+https://gcc.gnu.org/onlinedocs/gcc-3.4.0/gcc/X86-Built-in-Functions.html
+https://gcc.gnu.org/onlinedocs/gcc/Vector-Extensions.html
+
+
+
+ https://www.youtube.com/watch?v=TEjDYtkLRdQ&list=PL_w_qWAQZtAZhtzPI5pkAtcUVgmzdAP8g&index=10
+ https://learnopengl.com/Getting-started/Transformations
+ https://raytracing.github.io/
+ https://github.com/favreau/awesome-ray-tracing
+ https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
+ https://gcc.gnu.org/onlinedocs/gcc/Vector-Extensions.html
+
+
+For quaternions
+
+ complex float a __attribute__ ((aligned (16))) = 5 + 10*I;
+__m128 f = _mm_load_ps((float const *)&a); // requires 16B alignment
+float *p = (float *)&f;
+printf("real(0): %f, imag(1): %f, (2): %f, (3): %f\n", p[0], p[1], p[2], p[3]);
