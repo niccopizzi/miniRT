@@ -6,12 +6,12 @@
 
 typedef struct s_cam
 {
-    float       hsize;
-    float       vsize;
-    float       fov;
-    t_point4    origin;
-    t_vec4      forward;
-    t_mat4      transform;
+    float      hsize;
+    float      vsize;
+    float      fov;
+    t_point4   origin;
+    t_vec4     forward;
+    t_mat4     transform;
 }   t_cam;
 
 void        camera_setup(t_cam *camera);

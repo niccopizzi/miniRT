@@ -1,10 +1,5 @@
 #include "intersections.h"
 
-t_comps         prepare_comps(const t_ray ray, const t_object *object, float t)
-{
-    
-}
-
 t_intersect*    hit(const t_da *intersections)
 {
     t_intersect*    it;

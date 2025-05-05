@@ -37,13 +37,13 @@ float       matrix4_det(t_mat4 m);
 bool        matrix4_compare_eq(t_mat4 m1, t_mat4 m2);
 
 
-t_transform      matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up);
-t_transform      matrix4_shearing(const float* values);
-t_transform      matrix4_rotate_x(float  rad);
-t_transform      matrix4_rotate_y(float  rad);
-t_transform      matrix4_rotate_z(float  rad);
-t_transform      matrix4_translate(float tx, float ty, float tz);
-t_transform      matrix4_scaling(float tx, float ty, float tz);
+t_mat4      matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up);
+t_mat4      matrix4_shearing(const float* values);
+t_mat4      matrix4_rotate_x(float  rad);
+t_mat4      matrix4_rotate_y(float  rad);
+t_mat4      matrix4_rotate_z(float  rad);
+t_mat4      matrix4_translate(float tx, float ty, float tz);
+t_mat4      matrix4_scaling(float tx, float ty, float tz);
 
 
 t_mat2      matrix3_submatrix(t_mat3 m, int row, int col);

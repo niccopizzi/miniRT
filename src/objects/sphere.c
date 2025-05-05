@@ -33,27 +33,32 @@ t_vec4  sphere_normal_at(t_object *sphere, t_point4 *p)
     return (normal);
 }
 
-bool  sphere_hit_test(t_ray *ray, t_object *sphere, float* t)
+bool  sphere_hit_test(t_ray *ray, t_object *sphere, t_hit *hit_record, 
+                        float t_min, float t_max)
 {
-    t_vec4  sphere_to_ray;
-    t_vec4  values;
-    t_ray   ray_t;
-    float   sqrtd;
-    float   invd;
+    t_vec4 oc;
+    float   values[4];  /*a h c d*/
+    float   droot;
+    float   root;
 
-    ray_t = ray_transform(ray, sphere->transform);
-    sphere_to_ray = ray_t.origin - sphere->center;
-    values = (t_vec4){vector_dot_product(ray_t.direction, ray_t.direction),
-                    2 * vector_dot_product(ray_t.direction, sphere_to_ray), 
-                    vector_dot_product(sphere_to_ray, sphere_to_ray) - 1, 
-                    0};
-    values[3] = values[1] * values[1] - (4 * values[0] * values[2]);
+    oc = sphere->center - ray->direction;
+    values[0] = vector_len_squared(ray->direction);
+    values[1] = vector_dot_product(ray->direction, oc);
+    values[2] = vector_len_squared(oc) - (sphere->radius * sphere->radius);
+    values[3] = values[1] * values[1] - values[0] * values[2];
     if (values[3] < 0)
         return (false);
-    sqrtd = sqrt(values[3]);
-    invd = 1.f / (2 * (values[0]));
-    t[0] = (-values[1] - sqrtd) * invd;
-    t[1] = (-values[1] + sqrtd) * invd;
+    droot = sqrt(values[3]);
+    root = (values[1] - droot) / values[0];
+    if (root <= t_min || root >= t_max)
+    {
+        root = (values[1] + droot) / values[0];
+        if (root <= t_min || root >= t_max)
+            return (false);
+    }
+    hit_record->t = root;
+    hit_record->p = ray_at(*ray, root);
+    hit_set_face_normal(ray, hit_record, sphere_normal_at(sphere, hit_record->p));
     return (true);
 }
 

@@ -1,7 +1,7 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-#define IMG_RATIO 1
+#define IMG_RATIO 1.778
 #define WIDTH 1000
 #define HEIGHT (int)(WIDTH / IMG_RATIO)
 #define WALL_SIZE 10

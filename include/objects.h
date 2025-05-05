@@ -26,6 +26,14 @@ typedef struct s_object
 }   t_object;
 
 
+typedef struct s_hit
+{
+    bool        front_face;
+    float       t;
+    t_point4    p;
+    t_vec4      normal;
+}   t_hit;
+
 typedef union u_material
 {
     t_vec4      values;
@@ -46,7 +54,7 @@ typedef struct s_primitive
 }   t_primitive;
 
 
-
+void            hit_set_face_normal(t_ray *ray, t_hit *hit, t_vec4 *normal);
 
 t_material      material_set(float ambient, float diffuse, float specular, float shininess);
 t_object        sphere_new(t_point4 center, float radius);

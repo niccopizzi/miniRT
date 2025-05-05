@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-t_transform      matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up)
+t_mat4 matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up)
 {
     t_mat4  m;
 
@@ -12,15 +12,14 @@ t_transform      matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up
             matrix4_translate(-forward[0], -forward[1], -forward[2])));
 }
 
-t_transform      matrix4_scaling(float tx, float ty, float tz)
+t_mat4 matrix4_scaling(float tx, float ty, float tz)
 {
-    t_transform  m;
+    t_mat4  m;
 
-    m.t = matrix4_identity();
-    m.t.row[0][0] = tx;
-    m.t.row[1][1] = ty;
-    m.t.row[2][2] = tz;
+    m = matrix4_identity();
+    m.row[0][0] = tx;
+    m.row[1][1] = ty;
+    m.row[2][2] = tz;
 
-    m.inv = matrix4_invert(m.t);
     return (m);
 }

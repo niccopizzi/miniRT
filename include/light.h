@@ -4,7 +4,6 @@
 #include "mlx_utils.h"
 #include "objects.h"
 
-
 #define EFFECTIVE 0
 #define AMBIENT 1
 #define DIFFUSE 2

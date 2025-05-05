@@ -1,21 +1,18 @@
 #include "miniRT.h"
 
-
-
 void        camera_setup(t_cam *camera)
 {
     t_vec4  up;
 
     camera->hsize = HEIGHT;
     camera->vsize = WIDTH;
-    camera->transform = matrix4_identity();
     if (camera->forward[0] == 0.f && camera->forward[2] == 0.f &&
         (camera->forward[1] == -1.f || camera->forward[1] == 1.f))
     {
-        up = (t_vec4){0, 0, -(camera->forward[1])};
+        up = (t_vec4){0, 0, -(camera->forward[1]), 0};
     }
     else
-        up = (t_vec4){0, 1, 0};
+        up = (t_vec4){0, 1, 0, 0};
     camera->transform = matrix4_view_transform(camera->origin, camera->forward, up);
 }
 /*
