@@ -10,24 +10,66 @@
 
 #define BUFFER_SIZE 42
 
-typedef enum e_bytes
-{
-    OBJECT_BYTES = 160,
-}   t_bytes;
-
-
 typedef struct s_da
 {
     char*       data;
-    t_bytes     bytes;
+    size_t      bytes;
     size_t      size;
     size_t      capacity;
 }   t_da;
 
-bool    da_init(t_da *da, size_t capacity, t_bytes bytes);
+
+/**
+ * @brief Initialize the dynamic array.
+ *
+ * This function takes a pointer to a dynamic array and initializes it allocating the necessary bytes, it return false if malloc failed.
+ *
+ * @param da Pointer to the dynamic array.
+ * @param capacity The total elements the array can store.
+ * @param bytes The amount of bytes the single elements occupy in memory.
+ * @return True if allocation of memory was succesful, False otherwise.
+ */
+bool    da_init(t_da *da, size_t capacity, size_t bytes);
+
+/**
+ * @brief Resize the dynamic array.
+ *
+ * This function takes a pointer to a dynamic array that is full and resizes it allocating a new block of memory, it return false if malloc failed.
+ *
+ * @param da Pointer to the dynamic array.
+ * @return True if allocation of memory was succesful, False otherwise.
+ */
+
 bool    da_realloc(t_da *da);
+/**
+ * @brief Append the data to the dynamic array.
+ *
+ * This function takes a pointer to a dynamic array and to the data to be stored and appends the data to the end of the array, resizing the array if there's not enough space, it return false if malloc failed.
+ *
+ * @param da Pointer to the dynamic array.
+ * @param data Pointer to the data to be stored.
+ * @return True if allocation of memory was succesful, False otherwise.
+ */
 bool    da_append(t_da *da, void* data);
+
+/**
+ * @brief Pop the last element of the dynamic array.
+ *
+ * This function takes a pointer to a dynamic array and pops the last data that was stored.
+ *
+ * @param da Pointer to the dynamic array.
+ */
 void    da_pop(t_da *da);
+
+/**
+ * @brief Swap two element in a dynamic array.
+ *
+ * This function takes a pointer to a dynamic array and the positions of the elements to be swapped.
+ *
+ * @param da Pointer to the dynamic array.
+ * @param pos1 The position of the first element.
+ * @param pos2 The position of the second element.
+ */
 void    da_swap(t_da *da, size_t pos1, size_t pos2);
 
 bool	ft_isspace(char c);

@@ -1,5 +1,4 @@
 #include "mlx_utils.h"
-#include "light.h"
 
 int window_close(t_ptrs *ptrs)
 {

@@ -13,8 +13,8 @@
 #endif
 
 #include <time.h>
+#include "objects.h"
 #include "mlx_utils.h"
 #include "parsing.h"
 #include "matrix.h"
-#include "light.h"
 #endif // MINIRT_H

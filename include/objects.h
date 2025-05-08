@@ -13,6 +13,8 @@ typedef enum e_type
 }   t_type;
 
 
+#define OBJECT_BYTES 160
+
 typedef struct s_object
 {
     t_type      type;
@@ -23,7 +25,6 @@ typedef struct s_object
     t_point4    center;
     t_vec4      axis;
     t_color     color;
-    t_mat4      transform;
 }   t_object;
 
 #endif  //OBJECTS_H
