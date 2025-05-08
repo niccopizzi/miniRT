@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         return (printf(ERR MALLOC_ERR), 2);
     if (!are_valid_args(argv, &world))
         return(free(world.objects.data), printf("File is not ok!\n"), 3);
-    
+
     connection_init(&ptrs, &img , &world);
     hooks_set_up(&ptrs);
     mlx_clear_window(ptrs.mlx_ptr, ptrs.win_ptr);
