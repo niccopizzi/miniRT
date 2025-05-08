@@ -9,12 +9,8 @@
 #define DIFFUSE 2
 #define SPECULAR 3
 
-void      light_move(t_ptrs *ptrs, int key);
-
-t_color   phong_lightning(const t_primitive *p, const t_light* light, 
+void        light_move(t_ptrs *ptrs, int key);
+t_color     phong_lightning(const t_object *obj, const t_light* light, 
                             const t_ray* eye_ray, const t_vec4* normal);
-
-int     convert_to_rgb(t_color* color);
-float   clamp(float to_clamp, float min, float max);
 
 #endif //LIGHT_H

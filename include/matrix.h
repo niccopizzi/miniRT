@@ -16,11 +16,6 @@ typedef union u_mat2
     float   arr[4];
 }   t_mat2;
 
-typedef struct s_transform
-{
-    t_mat4  t;
-    t_mat4  inv;
-} t_transform;
 
 typedef t_mat4  t_mat3;
 

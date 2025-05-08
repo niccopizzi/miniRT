@@ -1,7 +1,7 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-#define IMG_RATIO 1.778
+#define IMG_RATIO 1
 #define WIDTH 1000
 #define HEIGHT (int)(WIDTH / IMG_RATIO)
 #define WALL_SIZE 10
@@ -15,8 +15,6 @@
 #include <time.h>
 #include "mlx_utils.h"
 #include "parsing.h"
-#include "camera.h"
 #include "matrix.h"
 #include "light.h"
-#include "intersections.h"
 #endif // MINIRT_H

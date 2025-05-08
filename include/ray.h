@@ -4,9 +4,6 @@
 #include "matrix.h"
 #include <limits.h>
 
-#define T_MAX 1000
-#define T_MIN 0.1
-
 typedef enum    e_rtype
 {
     PRIMARY,
@@ -18,7 +15,6 @@ typedef enum    e_rtype
 typedef struct s_ray
 {
     t_rtype         type;
-    float           min_t;
     t_vec4          direction;
     t_point4        origin;
 } t_ray;

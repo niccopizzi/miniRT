@@ -12,6 +12,7 @@ typedef enum e_type
     CY,
 }   t_type;
 
+
 typedef struct s_object
 {
     t_type      type;
@@ -25,40 +26,4 @@ typedef struct s_object
     t_mat4      transform;
 }   t_object;
 
-
-typedef struct s_hit
-{
-    bool        front_face;
-    float       t;
-    t_point4    p;
-    t_vec4      normal;
-}   t_hit;
-
-typedef union u_material
-{
-    t_vec4      values;
-    struct s_elements
-    {
-        float   ambient;
-        float   diffuse;
-        float   specular;
-        float   shininess;
-    } elem;
-    
-}   t_material;
-
-typedef struct s_primitive
-{
-    t_object*       object;
-    t_material     material;
-}   t_primitive;
-
-
-void            hit_set_face_normal(t_ray *ray, t_hit *hit, t_vec4 *normal);
-
-t_material      material_set(float ambient, float diffuse, float specular, float shininess);
-t_object        sphere_new(t_point4 center, float radius);
-t_vec4          sphere_normal_at(t_object *sphere, t_point4 *p);
-bool            sphere_hit_test(t_ray *ray, t_object *sphere, float* t);
-void            sphere_set_transform(t_object *sphere, t_mat4 tm);
 #endif  //OBJECTS_H

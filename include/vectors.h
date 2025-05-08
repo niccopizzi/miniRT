@@ -9,8 +9,10 @@
 #include <stdbool.h>
 
 typedef     __m128 t_vec4;
+
 typedef     t_vec4  t_point4;
 typedef     t_vec4  t_color;
+ 
 
 #define PI          3.141593
 #define EPSILON     0.000001

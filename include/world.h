@@ -1,8 +1,15 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "camera.h"
+#include "vectors.h"
 #include "../lib/minift/include/minift.h"
+
+typedef struct s_cam
+{
+    float      fov;
+    t_point4   origin;
+    t_vec4     forward;
+}   t_cam;
 
 typedef struct s_ambient_light
 {

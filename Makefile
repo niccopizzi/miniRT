@@ -25,10 +25,12 @@ square:
 	@echo "COMPILED THE SQUARED MOTAFAKKA!"
 	
 clean:
+	@cd $(LIBFT_DIR) && $(MAKE) clean
 	@$(RM) $(MY_OBJECTS)
 	@echo "Objects files removed."
 
 fclean: clean
+	@cd $(LIBFT_DIR) && $(MAKE) fclean
 	@$(RM) $(NAME)
 	@echo "$(NAME) removed."
 

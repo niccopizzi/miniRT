@@ -44,7 +44,6 @@ bool    parse_camera(char *line, t_world *world)
         line++;
     if (*line != '\n')
         return (printf(ERR CAM ENDLINE_ERR), false);
-    camera_setup(&c);
     world->cam = c;
     return (true);
 }
@@ -98,7 +97,7 @@ bool    parse_file(int fd, t_world *world)
             valid = parse_cylinder(trim + 2, world);
         else if (trim[0] != '\n')
             printf(ERR UNKOWN_INPUT), valid = false;
-        free(line), free(trim),line = NULL, trim = NULL;
+        free(line), free(trim), line = NULL, trim = NULL;
     }
     return (valid);
 }
