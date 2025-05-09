@@ -1,6 +1,12 @@
 
 GENERAL IDEAS
 
+-   Keep track of pixel being rendered -> for debugging purpose save the x and y in a global var that you can print to check where it fails
+
+- DESIGN EVERYTHING AS GENERAL AS POSSIBLE 
+        -> for example object struct is general and has its own hit function that will be called
+        -> 
+
 - I tried to use the stack as much as possible and minimize the call to malloc to have better perfomance and to avoid having to check a lot if malloc failed
 
 - When possible I tried to use arrays instead of linked list, in particular this can be helpful in the main loop where we have to traverse all the objects in the 

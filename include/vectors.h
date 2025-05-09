@@ -15,6 +15,7 @@ typedef     t_vec4  t_color;
  
 
 #define PI          3.141593
+#define INVPI       0.318309
 #define EPSILON     0.000001
 
 t_vec4      vector_negate(t_vec4 vector);
