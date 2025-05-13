@@ -3,6 +3,7 @@
 
 #include "../lib/minift/include/minift.h"
 #include "world.h"
+#include "ray.h"
 #include <string.h>
 #include <errno.h>
 #include <stdbool.h>

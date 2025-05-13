@@ -5,7 +5,7 @@ bool    parse_sphere(char *line, t_world *world)
 {
     t_object sphere;
 
-    sphere.type = SP;
+    sphere.hit = &sphere_hit;
     if (!skip_space_and_check(&line, ERR SPHERE))
         return (false);
     if (!parse_vector_or_point(&line, &sphere.center, 1.f, ERR SPHERE CENTER))
@@ -25,31 +25,32 @@ bool    parse_sphere(char *line, t_world *world)
     return (da_append(&world->objects, &sphere));
 }
 
-bool    parse_cylinder_two(char *line, t_world *world, t_object cylinder)
+bool    parse_cylinder_two(char *line, t_world *world, t_object cy)
 {
     if (!is_valid_float(line))
         return (printf(ERR CYLINDER INV_FLOAT), false);
-    line = ft_strtof(line, &cylinder.radius);
-    cylinder.radius *= 0.5;
+    line = ft_strtof(line, &cy.radius);
+    cy.radius *= 0.5;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
     if (!is_valid_float(line))
         return (printf(ERR CYLINDER INV_FLOAT), false);
-    line = ft_strtof(line, &cylinder.height);
+    line = ft_strtof(line, &cy.height);
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
-    if (!parse_rgb(&line, &cylinder.color))
+    cy.bp = cy.center - (float)(cy.height * 0.5) * cy.axis;
+    if (!parse_rgb(&line, &cy.color))
         return (printf(ERR CYLINDER RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR CYLINDER ENDLINE_ERR), false);
-    return (da_append(&world->objects, &cylinder));
+    return (da_append(&world->objects, &cy));
 }
 
 bool    parse_cylinder(char *line, t_world *world)
 {
     t_object    cylinder;
 
-    cylinder.type = CY;
+    cylinder.hit = cylinder_hit;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
     if (!parse_vector_or_point(&line, &cylinder.center, 1.f, ERR CYLINDER CENTER))
@@ -68,7 +69,7 @@ bool    parse_plane(char *line, t_world *world)
 {
     t_object    plane;
 
-    plane.type = PL;
+    plane.hit = plane_hit;
     if (!skip_space_and_check(&line, ERR PLANE))
         return (false);
     if (!parse_vector_or_point(&line, &plane.point, 1.f, ERR PLANE))

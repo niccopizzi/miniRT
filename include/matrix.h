@@ -4,6 +4,8 @@
 #include "vectors.h"
 #include <stdio.h>
 
+#define TO_RAD 0.0174533
+
 typedef union u_mat4
 {
     t_vec4  row[4];

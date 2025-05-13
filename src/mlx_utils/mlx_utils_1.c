@@ -30,15 +30,15 @@ void connection_init(t_ptrs* ptrs, t_image* img, t_world *world)
                          &img->size_line, &img->endianess);
 }
 
-int     convert_to_rgb(t_color* color)
+int     convert_to_rgb(t_color color)
 {
     int r;
     int g;
     int b;
     
-    r = 255.999 * (*color)[0];
-    g = 255.999 * (*color)[1];
-    b = 255.999 * (*color)[2];
+    r = 255.999 * (color)[0];
+    g = 255.999 * (color)[1];
+    b = 255.999 * (color)[2];
     return (r << 16 | g << 8 | b);
 }
 

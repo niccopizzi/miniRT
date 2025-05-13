@@ -1,5 +1,6 @@
 LOT OF STUFF!
 
+if file is empty parsing gets passed
 
 understand projection matrix!
 brdf (for what?)

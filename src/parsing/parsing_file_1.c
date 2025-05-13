@@ -32,18 +32,19 @@ bool    parse_camera(char *line, t_world *world)
         return (false);
     if (!skip_space_and_check(&line, ERR CAM))
         return (false);
-    if (!parse_vector_or_point(&line, &c.forward, 0.f, ERR CAM COOR))
+    if (!parse_vector_or_point(&line, &c.up, 0.f, ERR CAM COOR))
         return (false);
-    c.forward = vector_normalize(c.forward);
+    c.up = vector_normalize(c.up);
     if (!skip_space_and_check(&line, ERR CAM))
         return (false);
     c.fov = ft_atoi(line);
-    if (c.fov < 0 || c.fov > 180)
+    if (c.fov <= 0 || c.fov > 180)
         return (printf(ERR CAM FOV OOR), false);
     while (*line >= '0' && *line <= '9')
         line++;
     if (*line != '\n')
         return (printf(ERR CAM ENDLINE_ERR), false);
+    c.rotate = false;
     world->cam = c;
     return (true);
 }

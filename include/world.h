@@ -6,9 +6,13 @@
 
 typedef struct s_cam
 {
-    float      fov;
-    t_point4   origin;
-    t_vec4     forward;
+    int         rotate;
+    float       fov;
+    float       distance;
+    t_point4    origin;
+    t_vec4      forward;
+    t_vec4      up;
+    t_vec4      right;
 }   t_cam;
 
 typedef struct s_ambient_light

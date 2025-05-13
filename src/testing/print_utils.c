@@ -15,6 +15,11 @@ void    matrix_print(t_mat4 id, int size, char *name)
     }
 }
 
+void    vector_print(char* name, t_vec4 v)
+{
+    printf("Printing vector : %s\n%f %f %f %f\n", name, v[0], v[1], v[2], v[3]);
+}
+
 void    print_world(t_world *world)
 {
     printf("AMBIENT LIGHT\nCOLOR: %f %f %f\nRATIO: %f\n",
@@ -28,7 +33,7 @@ void    print_world(t_world *world)
             world->cam.origin[0], world->cam.origin[1], world->cam.origin[2],
             world->cam.forward[0], world->cam.forward[1], world->cam.forward[2]);
     t_object *ptr = (t_object*)world->objects.data;
-    for (size_t i; i < world->objects.size; i++)
+    /* for (size_t i; i < world->objects.size; i++)
     {
         switch (ptr[i].type)
         {
@@ -54,5 +59,5 @@ void    print_world(t_world *world)
             printf("ERROR   \n");
             break;
         }
-    }
+    } */
 }

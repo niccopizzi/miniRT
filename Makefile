@@ -5,8 +5,27 @@ NAME = miniRT
 LIBFT_DIR = ./lib/minift
 LIB = -L./lib/minilibx-linux -lmlx_Linux -L./lib/minift -lminift -lX11 -lXext -lm  
 
-MY_SOURCES = ./src/main.c \
-				./src/*/*
+MY_SOURCES = ./src/main.c 			\
+				./src/math/matrix/matrix_SIMD_op1.c 		\
+				./src/math/matrix/matrix_SIMD_op2.c			\
+				./src/math/matrix/matrix_SIMD_op3.c			\
+				./src/math/matrix/matrix_SIMD_op4.c			\
+				./src/math/matrix/matrix_SIMD_op5.c			\
+				./src/math/vector/vector_SIMD_op1.c			\
+				./src/math/vector/vector_SIMD_op2.c			\
+				./src/math/vector/vector_SIMD_op3.c			\
+				./src/math/vector/vector_SIMD_op4.c			\
+				./src/mlx_utils/mlx_hooks.c				 	\
+				./src/mlx_utils/mlx_utils_1.c				\
+				./src/objects/hit_functions.c			 	\
+				./src/parsing/parsing_file_1.c			 	\
+				./src/parsing/parsing_file_2.c			 	\
+				./src/parsing/parsing_utils_1.c			 	\
+				./src/parsing/parsing_utils_2.c			 	\
+				./src/ray/ray.c								\
+				./src/rendering/scene_render.c				\
+				./src/rendering/camera.c					\
+				./src/testing/print_utils.c
 
 all: $(NAME)
 
