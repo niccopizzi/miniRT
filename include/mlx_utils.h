@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/13 19:16:10 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/13 19:27:38 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    connection_init(t_ptrs* ptrs, t_image* img, t_world* world);
 void    image_pixel_put(t_image *image, int x, int y, int color);
 int     hooks_key(int key, t_ptrs *ptrs);
 void    hooks_set_up(t_ptrs *ptrs);
-int     convert_to_rgb(t_color color);
+int     to_rgb(t_color color);
 
 
 //Forward declaration

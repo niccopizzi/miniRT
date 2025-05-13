@@ -9,22 +9,6 @@ int window_close(t_ptrs *ptrs)
     exit(EXIT_SUCCESS);
 }
 
-int    set_cam_rotation(t_ptrs* ptrs, t_cam* c)
-{
-    c->rotate = !c->rotate; /*Flip the rotation mode, if it's false becomes true
-                                if it's true becomes false*/
-    render_scene(ptrs, ptrs->world);
-    if (c->rotate == true)
-    {
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, "CAMERA ROTATION ACTIVE");
-    }
-    else
-    {
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, "CAMERA MOVEMENT ACTIVE");
-    }
-    return (1);
-}
-
 void     handle_cam_rotation(int key, t_cam* c)
 {
     if (key == XK_Left)
@@ -58,7 +42,7 @@ int    keys_hook(int key, t_ptrs* ptrs)
     if (key == XK_Escape)
         return (window_close(ptrs));
     if (key == XK_r)
-        return (set_cam_rotation(ptrs, &ptrs->world->cam));
+        ptrs->world->cam.rotate = !ptrs->world->cam.rotate;
     if (ptrs->world->cam.rotate)
         handle_cam_rotation(key, &ptrs->world->cam);
     else

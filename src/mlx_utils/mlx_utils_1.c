@@ -30,7 +30,7 @@ void connection_init(t_ptrs* ptrs, t_image* img, t_world *world)
                          &img->size_line, &img->endianess);
 }
 
-int     convert_to_rgb(t_color color)
+int     to_rgb(t_color color)
 {
     int r;
     int g;
