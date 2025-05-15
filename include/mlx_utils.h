@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/13 19:27:38 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:16:31 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void    hooks_set_up(t_ptrs *ptrs);
 int     to_rgb(t_color color);
 
 
-//Forward declaration
+//Forward declarations
 void    render_scene(t_ptrs* ptrs, t_world* world);
+void    camera_setup(t_cam* c);
 /* 
 void    display_light_palette(t_ptrs ptrs, t_image img);
 void    draw_vertical_line(t_ptrs *ptrs, int x, int y, int max_y, int color);

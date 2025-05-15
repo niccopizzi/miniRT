@@ -18,6 +18,8 @@ MY_SOURCES = ./src/main.c 			\
 				./src/mlx_utils/mlx_hooks.c				 	\
 				./src/mlx_utils/mlx_utils_1.c				\
 				./src/objects/hit_functions.c			 	\
+				./src/objects/normal_functions.c			\
+				./src/objects/object_utils.c				\
 				./src/parsing/parsing_file_1.c			 	\
 				./src/parsing/parsing_file_2.c			 	\
 				./src/parsing/parsing_utils_1.c			 	\
@@ -25,6 +27,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/ray/ray.c								\
 				./src/rendering/scene_render.c				\
 				./src/rendering/camera.c					\
+				./src/rendering/shading.c					\
 				./src/testing/print_utils.c
 
 all: $(NAME)

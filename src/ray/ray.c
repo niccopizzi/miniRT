@@ -1,4 +1,4 @@
-#include "objects.h"
+#include "render.h"
 
 inline t_ray   ray_create(t_point4 origin, t_vec4 direction, t_rtype type)
 {
@@ -55,7 +55,8 @@ t_color     ray_trace(t_ray *ray, const t_world* world)
     {
         if ((obj_ptr[i].hit(&obj_ptr[i], ray, &t)) && (t < t_min))
         {
-                ret_color = obj_ptr[i].color;
+                ret_color = phong_lightning(&obj_ptr[i], &world->light_src, ray, 
+                    obj_ptr[i].norm(&obj_ptr[i], *ray, t));
                 t_min = t;
         }
         i++;

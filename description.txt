@@ -1,11 +1,6 @@
 
 GENERAL IDEAS
 
-/*to zoom in    -> pixel_size has to be smaller
-                                  to zoom out   -> pixel_size has to be larger
-                                  Idea: store vp in world and when we get a zoom
-                                    request adjust the pixel size*/
-
 -   Keep track of pixel being rendered -> for debugging purpose save the x and y in a global var that you can print to check where it fails
 
 - DESIGN EVERYTHING AS GENERAL AS POSSIBLE 

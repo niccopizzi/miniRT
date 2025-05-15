@@ -6,6 +6,7 @@ bool    parse_sphere(char *line, t_world *world)
     t_object sphere;
 
     sphere.hit = &sphere_hit;
+    sphere.norm = &sphere_normal;
     if (!skip_space_and_check(&line, ERR SPHERE))
         return (false);
     if (!parse_vector_or_point(&line, &sphere.center, 1.f, ERR SPHERE CENTER))
@@ -51,6 +52,7 @@ bool    parse_cylinder(char *line, t_world *world)
     t_object    cylinder;
 
     cylinder.hit = cylinder_hit;
+    cylinder.norm = sphere_normal;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
     if (!parse_vector_or_point(&line, &cylinder.center, 1.f, ERR CYLINDER CENTER))
@@ -70,6 +72,7 @@ bool    parse_plane(char *line, t_world *world)
     t_object    plane;
 
     plane.hit = plane_hit;
+    plane.norm = plane_normal;
     if (!skip_space_and_check(&line, ERR PLANE))
         return (false);
     if (!parse_vector_or_point(&line, &plane.point, 1.f, ERR PLANE))

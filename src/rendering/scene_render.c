@@ -28,5 +28,5 @@ void    render_scene(t_ptrs* ptrs, t_world* world)
     if (world->cam.rotate)
         mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, "CAMERA ROTATION ACTIVE");
     else
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, "CAMERA MOVEMENT ACTIVE");
+        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, "CAMERA TRANSLATION ACTIVE");
 }

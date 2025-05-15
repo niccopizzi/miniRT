@@ -1,8 +1,11 @@
 LOT OF STUFF!
 
+
+
+
 if file is empty parsing gets passed
 
-understand projection matrix!
+
 brdf (for what?)
 restir (for what?)
 compile with --fast-math 
@@ -36,9 +39,7 @@ printf("real(0): %f, imag(1): %f, (2): %f, (3): %f\n", p[0], p[1], p[2], p[3]);
 
 You need at least these three simple geometric objects: 
 
-plane
-sphere
-cylinder
+cylinder -> missing caps
 
 • If applicable, all possible intersections and the insides of the objects must be handled
 correctly.
@@ -63,20 +64,6 @@ spaces.
 
 
 
-
-void      light_move(t_ptrs *ptrs, int key)
-{
-    if (key == XK_Down)
-        ptrs->world->light_src.pos[1] -= 1;
-    else if (key == XK_Up)
-        ptrs->world->light_src.pos[1] += 1;
-    else if (key == XK_Left)
-        ptrs->world->light_src.pos[0] -= 1;
-    else if (key == XK_Right)
-        ptrs->world->light_src.pos[0] += 1;
-
-    /*call draw routine here*/
-}
 
 Phong lightning possible implementation, to adjust when the structure of the project is clear
 
