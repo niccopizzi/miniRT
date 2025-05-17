@@ -27,6 +27,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/ray/ray.c								\
 				./src/rendering/scene_render.c				\
 				./src/rendering/camera.c					\
+				./src/rendering/loop.c						\
 				./src/rendering/shading.c					\
 				./src/testing/print_utils.c
 

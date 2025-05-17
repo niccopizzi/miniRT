@@ -20,25 +20,25 @@ void     handle_cam_rotation(int key, t_cam* c)
     else if (key == XK_Down)
         c->up = matrix4_mult_vec4(matrix4_rotate_x(-10 * TO_RAD), c->up);
     else if (key == XK_plus || key == Custom_plus)
-        c->origin[2] -= 50;
+        c->origin -= c->forward * 10;
     else if (key == XK_minus || key == Custom_minus)
-        c->origin[2] += 50;
+        c->origin += c->forward * 10;
 }
 
 void     handle_cam_movement(int key, t_cam* c)
 {
     if (key == XK_Left)
-        c->origin[0] += 50;
+        c->origin -= c->right * 50;
     else if (key == XK_Right)
-        c->origin[0] -= 50;
+        c->origin += c->right * 50;
     else if (key == XK_Up)
-        c->origin[1] += 50;
+        c->origin -= c->up * 50;
     else if (key == XK_Down)
-        c->origin[1] -= 50;
+        c->origin += c->up * 50;
     else if (key == XK_plus || key == Custom_plus)
-        c->origin[2] -= 50;
+        c->origin -= c->forward * 10;
     else if (key == XK_minus || key == Custom_minus)
-        c->origin[2] += 50;
+        c->origin += c->forward * 10;
 }
 
 int    keys_hook(int key, t_ptrs* ptrs)
