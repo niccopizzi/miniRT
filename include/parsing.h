@@ -43,7 +43,7 @@
 #define MALLOC_ERR "malloc failed\n"
 
 //PARSE UTILS
-bool    are_valid_args(char *argv[], t_world *world);
+bool    is_valid_file(char *filename, t_world *world);
 bool    skip_space_and_check(char **line, char *msg);
 bool    is_valid_float(char *line);
 bool    is_valid_vector(t_vec4 *vec, float min, float max, char *msg);

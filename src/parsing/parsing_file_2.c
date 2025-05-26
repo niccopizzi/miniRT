@@ -5,8 +5,9 @@ bool    parse_sphere(char *line, t_world *world)
 {
     t_object sphere;
 
-    sphere.hit = &sphere_hit;
-    sphere.norm = &sphere_normal;
+    sphere.hit = sphere_hit;
+    sphere.normal_get = sphere_normal;
+    sphere.father = &sphere;
     if (!skip_space_and_check(&line, ERR SPHERE))
         return (false);
     if (!parse_vector_or_point(&line, &sphere.center, 1.f, ERR SPHERE CENTER))
@@ -36,15 +37,15 @@ bool    parse_cylinder_two(char *line, t_world *world, t_object cy)
         return (false);
     if (!is_valid_float(line))
         return (printf(ERR CYLINDER INV_FLOAT), false);
-    line = ft_strtof(line, &cy.height);
+    line = ft_strtof(line, &cy.half_height);
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
-    cy.bp = cy.center - (float)(cy.height * 0.5) * cy.axis;
+    cy.half_height *= 0.5;
     if (!parse_rgb(&line, &cy.color))
         return (printf(ERR CYLINDER RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR CYLINDER ENDLINE_ERR), false);
-    return (da_append(&world->objects, &cy));
+    return (cylinder_add_to_objects(&cy, world));
 }
 
 bool    parse_cylinder(char *line, t_world *world)
@@ -52,7 +53,8 @@ bool    parse_cylinder(char *line, t_world *world)
     t_object    cylinder;
 
     cylinder.hit = cylinder_hit;
-    cylinder.norm = sphere_normal;
+    cylinder.normal_get = cylinder_normal;
+    cylinder.father = NULL;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
     if (!parse_vector_or_point(&line, &cylinder.center, 1.f, ERR CYLINDER CENTER))
@@ -72,7 +74,8 @@ bool    parse_plane(char *line, t_world *world)
     t_object    plane;
 
     plane.hit = plane_hit;
-    plane.norm = plane_normal;
+    plane.normal_get = plane_normal;
+    plane.father = &plane;
     if (!skip_space_and_check(&line, ERR PLANE))
         return (false);
     if (!parse_vector_or_point(&line, &plane.point, 1.f, ERR PLANE))

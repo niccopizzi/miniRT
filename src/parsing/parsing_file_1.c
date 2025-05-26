@@ -32,9 +32,9 @@ bool    parse_camera(char *line, t_world *world)
         return (false);
     if (!skip_space_and_check(&line, ERR CAM))
         return (false);
-    if (!parse_vector_or_point(&line, &c.up, 0.f, ERR CAM COOR))
+    if (!parse_vector_or_point(&line, &c.forward, 0.f, ERR CAM COOR))
         return (false);
-    c.up = vector_normalize(c.up);
+    c.forward = vector_normalize(c.forward);
     if (!skip_space_and_check(&line, ERR CAM))
         return (false);
     c.fov = ft_atoi(line);
@@ -70,6 +70,7 @@ bool    parse_light(char *line, t_world *world)
         return (printf(ERR LIGHT RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR LIGHT ENDLINE_ERR), false);
+    l.move = false;
     world->light_src = l;
     return (true);
 }

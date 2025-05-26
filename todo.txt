@@ -13,6 +13,8 @@ Box-Muller transform to implement a normal distribution (Monte carlo simulation 
 caustic light!
 typedef float   t_vec4 __attribute__ ((vector_size (4 * sizeof(float))))for SIMD
 
+https://www.scratchapixel.com/lessons/3d-basic-rendering/cam-nav-controls/3d-nav-cam-nav-controls.html
+
 https://en.algorithmica.org/hpc/simd/intrinsics/
 
 https://berthub.eu/gcc-simd/fp-simd-builtins.html

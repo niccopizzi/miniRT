@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/14 17:16:31 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/26 20:05:25 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #include <stdio.h>
 #include <X11/keysym.h>
 
-#define IMG_RATIO 1
-#define WIDTH 1900
-#define HEIGHT 1080
+#define WIDTH 1980
+#define HEIGHT 1020
+#define IMG_RATIO (float)WIDTH / HEIGHT
 
 #define Custom_plus 65451
 #define Custom_minus 65453
@@ -43,6 +43,7 @@ typedef struct s_ptrs
     void        *win_ptr;
     t_image     *img;
     t_world     *world;
+    char        *filename;
 }   t_ptrs;
 
 int     window_close(t_ptrs *ptrs);
@@ -51,11 +52,13 @@ void    image_pixel_put(t_image *image, int x, int y, int color);
 int     hooks_key(int key, t_ptrs *ptrs);
 void    hooks_set_up(t_ptrs *ptrs);
 int     to_rgb(t_color color);
+int     reload(t_ptrs* ptrs);
 
 
 //Forward declarations
 void    render_scene(t_ptrs* ptrs, t_world* world);
 void    camera_setup(t_cam* c);
+bool    is_valid_file(char *filename, t_world *world);
 /* 
 void    display_light_palette(t_ptrs ptrs, t_image img);
 void    draw_vertical_line(t_ptrs *ptrs, int x, int y, int max_y, int color);

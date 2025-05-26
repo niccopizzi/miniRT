@@ -18,18 +18,19 @@ typedef enum e_type
 
 typedef struct s_object
 {
-    bool        (*hit)(struct s_object*, t_ray*, double* t_min); /*Hit function to call when checking for intersections
-                                                            between the ray and the object*/
-    t_vec4      (*norm)(struct s_object*, t_ray, float time);
-    float       radius;
-    float       height;
-    t_vec4      material;
-    t_point4    point;
-    t_vec4      normal;
-    t_point4    center;
-    t_point4    bp;
-    t_vec4      axis;
-    t_color     color;
+    bool                (*hit)(const struct s_object*, const t_ray*, double* t_min);
+     /*Hit function to call when checking for intersections between the ray and the object*/
+    t_vec4              (*normal_get)(const struct s_object*, const t_ray*, float time);
+    /*The function that returns the normal of the object at a given point*/
+    float               radius;
+    float               half_height;
+    t_vec4              material;
+    t_point4            point;
+    t_vec4              normal;
+    t_point4            center;
+    t_vec4              axis;
+    t_color             color;
+    struct s_object*    father;
 }   t_object;
 
 //Struct used to store the values of the ray-sphere intersection equation
@@ -45,31 +46,16 @@ typedef struct s_sphere_val
 
 //Struct used to store the values of the ray-cylinder intersection equation
 
-typedef struct s_cylinder_val
+typedef struct s_cy_equation
 {
-    t_vec4      ba; 
-    t_vec4      oc; 
-    double      baba; 
-    double      bard; 
-    double      baoc; 
-    double      k2; 
-    double      k1; 
-    double      k0; 
-    double      h;
-    double      t;
-    double      y; 
-} t_cy_val;
+    double  a;
+    double  b;
+    double  c;
+    double  discr;
+    double  dv;
+    double  xv;
 
-typedef struct s_inf_cy_val
-{
-    double      card;
-    double      caoc;
-    double      a;
-    double      b;
-    double      c;
-    double      h;
-    double      t;
-}   t_inf_cy_val;
+} t_cy_equation;
 
 
 /*Hit routines for the different objects, they are passed to the object struct
@@ -78,12 +64,18 @@ typedef struct s_inf_cy_val
 
 
 void    object_material_setup(t_object* obj);
-bool    plane_hit(t_object* pl, t_ray* r, double* t_min);
-bool    sphere_hit(t_object* sp, t_ray* r, double* t_min);
-bool    cylinder_hit(t_object* cy, t_ray* r, double *t_min);
+bool    plane_hit(const t_object* pl, const t_ray* r, double* t_min);
+bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min);
+bool    cylinder_hit(const t_object* cy, const t_ray* r, double *t_min);
+bool    disk_hit(const t_object* ds, const t_ray* r, double* t_min);
 
 
-t_vec4  sphere_normal(t_object* obj, t_ray r, float time);
-t_vec4  plane_normal(t_object* obj, t_ray r, float time);
-//t_vec4  
+t_vec4  sphere_normal(const t_object* obj, const t_ray* r, float time);
+t_vec4  plane_normal(const t_object* obj, const t_ray* r, float time);
+t_vec4  cylinder_normal(const t_object* obj, const t_ray* r, float time);
+
+
+bool    check_t(double t, double *t_min);
+bool    is_inside_cap(const t_point4 ray_at, const t_object* cy);
+bool    cylinder_add_to_objects(t_object* cy, t_world* world);
 #endif  //OBJECTS_H

@@ -1,18 +1,30 @@
 #include "matrix.h"
 
-t_mat4 matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up)
+t_mat4  matrix4_rodrigues_rot(t_vec4 axis, double angle)
 {
-    t_mat4  m;
+    t_mat4  r;
+    float   st;
+    float   ct;
+    float   x;
+    float   y;
+    float   z;
 
-    m.row[0] = vector_cross_prod(forward, up);
-    m.row[1] = vector_cross_prod(m.row[0], forward);
-    m.row[2] = -forward;
-    m.row[3] = (t_vec4){0, 0, 0, 1};
-    return (matrix4_mult_mat4(m, 
-            matrix4_translate(-forward[0], -forward[1], -forward[2])));
+    st = sin(angle);
+    ct = cos(angle);
+    x = axis[0];
+    y = axis[1];
+    z = axis[2];
+    r.row[0] = (t_vec4){ct + x * x * (1 - ct),  x * y * (1 - ct) - z * st,
+                        x * z * (1 - ct) + y * st, 0};
+    r.row[1] = (t_vec4){y * x * (1 - ct) + z * st, ct + y * y * (1 - ct),
+                        y * z * (1 - ct) - x * st, 0};
+    r.row[2] = (t_vec4){z * x * (1 - ct) - y * st, z * y * (1 - ct) + x * st,
+                        ct + z * z * (1 - ct), 0};
+    r.row[3] = (t_vec4){0, 0, 0, 1};
+    return (r);
 }
 
-t_mat4 matrix4_scaling(float tx, float ty, float tz)
+t_mat4  matrix4_scaling(float tx, float ty, float tz)
 {
     t_mat4  m;
 

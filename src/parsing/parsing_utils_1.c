@@ -1,24 +1,27 @@
 #include "parsing.h"
 #include "miniRT.h"
 
-bool    are_valid_args(char *argv[], t_world *world)
+bool    is_valid_file(char *filename, t_world *world)
 {
     char    *str;
+    bool    ret;
     int     fd;
 
-    str = ft_strnstr(argv[1], ".rt", ft_strlen(argv[1]));
+    str = ft_strnstr(filename, ".rt", ft_strlen(filename));
     if (!str || ft_strlen(str) != 3)
     {
-        printf("Error: %s: file not valid\n", argv[1]);
+        printf("Error: %s: file not valid\n", filename);
         return (false);
     }
-    fd = open(argv[1], O_RDONLY);
+    fd = open(filename, O_RDONLY);
     if (fd == -1)
     {
-        printf("Error: %s: %s\n", argv[1], strerror(errno));
+        printf("Error: %s: %s\n", filename, strerror(errno));
         return (false);
     }
-    return (parse_file(fd, world));
+    ret = parse_file(fd, world);
+    close(fd);
+    return (ret);
 }
 
 bool    skip_space_and_check(char **line, char *msg)

@@ -4,21 +4,34 @@
 #include "mlx_utils.h"
 #include "objects.h"
 
+#define MAX_DEPTH 5
+#define BIAS (float)1e-3
+
 typedef struct s_brdf
 {
     t_vec4      normal;
 
 }   t_brdf;
 
-#define EFFECTIVE   0
+
+typedef struct s_phong
+{
+    t_color effective;
+    t_color ambient;
+    t_color diffuse;
+    t_color specular;
+    t_vec4  reflected_ray;
+    t_vec4  light_vector;
+    float   ldn; //light - normal dot product
+    float   rdd; //reflected ray - direction dot product   
+    float   factor; //the phong factor for shininess 
+}   t_phong;
 
 void        render_scene(t_ptrs* ptrs, t_world* world);
-void        camera_setup(t_cam* c);
 
-t_color     ray_trace(t_ray *ray, const t_world* world);
-t_color     phong_lightning(t_object *obj, const t_light* light, 
-                            t_ray* eye_ray, t_vec4 normal);
+t_color     ray_trace(const t_ray *ray, const t_world* world, int depth);
+t_color     phong_lightning(const t_object *obj, const t_light* light, 
+                            const t_ray* eye_ray, t_vec4 normal);
 
-/*Return a ray translated into world coordinate*/
-t_vec4      camera_to_world(float x, float y, t_cam* cam);
+
 #endif // RENDER.H
