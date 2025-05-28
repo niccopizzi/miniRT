@@ -42,7 +42,8 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
     while (i < obj_size)
     {
         t = START_VAL;
-        if (obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) 
+        if (info->obj_hit->father != obj_ptr[i].father 
+                &&obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) 
                 && t < info->distance)
             return (true);
         i++;
