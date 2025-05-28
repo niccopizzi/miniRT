@@ -10,7 +10,7 @@ void    render_ui(t_ptrs* ptrs, t_world* world)
     else
         mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, 
                     "CAMERA TRANSLATION ACTIVE");
-    if (world->light_src.move)
+    if (world->lights.move)
         mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 40 , 40, 0xFFFFFF,
                     "LIGHT MOVEMENT ACTIVE");
 }
@@ -28,18 +28,19 @@ void    render_scene(t_ptrs* ptrs, t_world* world)
     int                 x;
     int                 y;
     float               p[2];
-    const float         scale = tan(world->cam.fov * 0.5 * TO_RAD);
+    float               scale;
     t_ray               eye_ray;
 
     y = 0;
     eye_ray.origin = world->cam.origin;
+    scale = world->cam.scale;
     while (y < HEIGHT)
     {
         x = 0;
-        p[1] = (1 - 2 * ((y + 0.5) / HEIGHT)) * scale;
+        p[1] = get_camera_y(y, scale);
         while (x < WIDTH)
         { 
-            p[0] = (2 * ((x + 0.5) / WIDTH) - 1) * scale * IMG_RATIO;
+            p[0] = get_camera_x(x, scale);
             move_ray_to_world(&eye_ray, &world->cam, p[0], p[1]);
             image_pixel_put(ptrs->img, x, y, 
                             to_rgb(ray_trace(&eye_ray, world, 0)));

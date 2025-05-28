@@ -8,7 +8,9 @@ t_vec4  sphere_normal(const t_object* obj, const t_ray* r, float time)
 t_vec4  plane_normal(const t_object* obj, const t_ray* r, float time)
 {
     (void)time;
-    /* if (vector_dot_product(r->direction, obj->normal) < 0)
+    (void)r;
+    /* 
+    if (vector_dot_product(r->direction, obj->normal) < 0)
         return (-obj->normal); */
     return (obj->normal);
 }

@@ -2,8 +2,7 @@
 
 /*Function to loop over all the objects and find the closest intersection point
 this value (t) will then be used to compute the color of the pixel*/
-bool      find_hit(const t_ray* ray, t_object** ptr, double *t, 
-                    const t_world* world)
+bool      find_hit(const t_ray* ray, const t_world* world, t_shading* s)
 {
     t_object* obj_ptr;
     size_t    obj_size;
@@ -13,42 +12,40 @@ bool      find_hit(const t_ray* ray, t_object** ptr, double *t,
     obj_ptr = (t_object*)world->objects.data;
     obj_size = world->objects.size;
     i = 0;
-    t_min = START_VAL;
     while (i < obj_size)
     {
-        if ((obj_ptr[i].hit(&obj_ptr[i], ray, &t_min)) && (t_min < *t))
+        t_min = START_VAL;
+        if ((obj_ptr[i].hit(&obj_ptr[i], ray, &t_min)) && (t_min < s->t))
         {
-                *t = t_min;
-                *ptr = obj_ptr + i; //Record the object that was hit, need to store this information for when
+                s->t = t_min;
+                s->obj_hit = obj_ptr + i; //Record the object that was hit, need to store this information for when
                                 //we go to compute the color 
         }
         i++;
     }
-    return (*ptr != NULL);
+    return (s->obj_hit != NULL);
 }
 
 bool        is_in_shadow(const t_point4 origin, const t_world* world, 
-                            t_object** to_test)
+                            t_shading* info)
 {
     t_ray       shadow_ray;
-    t_vec4      light_dir;
     t_object*   obj_ptr;
     size_t      obj_size;
     size_t      i;
     double      t;
-    float       t_light;
 
     obj_ptr = (t_object*)world->objects.data;
     obj_size = world->objects.size;
     i = 0;
-    light_dir = world->light_src.pos - origin;
-    t_light = vector_len(light_dir);
-    shadow_ray = ray_create(origin, vector_normalize(light_dir), SHADOW);
+    info->distance = vector_len(info->light_dir);
+    info->light_dir /= info->distance;
+    shadow_ray = ray_create(origin, (info->light_dir), SHADOW);
     t = START_VAL;
     while (i < obj_size)
     {
-        if (obj_ptr[i].father != *to_test &&
-                obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) && t < t_light)
+        if (obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) 
+                && t < info->distance)
             return (true);
         i++;
     }
@@ -58,24 +55,22 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
 t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
 {
     t_color     ret_color;
-    t_vec4      normal_at;
-    t_object*   obj_hit;
-    double      t;
+    t_shading   info;
 
     if (depth > MAX_DEPTH)
-        return (vector_from_float(0.0f));
-    obj_hit = NULL;
-    t = START_VAL;
-    ret_color = vector_from_float(0.0f);
-    if (find_hit(ray, &obj_hit, &t, world))
+        return (world->background);
+    info.obj_hit = NULL;
+    info.t = START_VAL;
+    ret_color = world->background;
+    if (find_hit(ray, world, &info))
     {
-        normal_at = obj_hit->normal_get(obj_hit, ray, t);
-        if (is_in_shadow(ray_at(ray, t) + normal_at * BIAS, world, 
-                        &obj_hit->father))
-            return (vector_from_float(0.0f));
-        ret_color = obj_hit->color;
-        //phong_lightning(obj_hit, &world->light_src, ray, 
-        //                                normal_at);
+        ret_color = world->ambient;
+        get_shading_info(&info, ray, &world->lights);
+        if (is_in_shadow(info.hit_point + info.normal_at * BIAS, world,
+                &info))
+            return (ret_color);
+        ret_color += info.obj_hit->color * world->lights.effective * fmaxf(0.0f, vector_dot_product
+                            (info.normal_at, info.light_dir)); 
     }
     return (vector_clamp(ret_color, 0, 1));
 }

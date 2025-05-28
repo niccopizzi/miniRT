@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:29:48 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/26 20:11:56 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/28 09:13:43 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
     hooks_set_up(&ptrs);
     mlx_clear_window(ptrs.mlx_ptr, ptrs.win_ptr);
     world_setup(&world);
+    create_seed();
     render_scene(&ptrs, &world); /*Actual renderer*/
     mlx_loop(ptrs.mlx_ptr);
 }

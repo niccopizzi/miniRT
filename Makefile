@@ -1,4 +1,4 @@
-CFLAGS = -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
+CFLAGS = -Wall -Wextra -Werror -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
 SQUARE = -D IMG_RATIO=1
 NAME = miniRT
 
@@ -18,6 +18,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/mlx_utils/mlx_hooks.c				 	\
 				./src/mlx_utils/reload.c				 	\
 				./src/mlx_utils/mlx_utils_1.c				\
+				./src/mlx_utils/mlx_utils_2.c				\
 				./src/world/objects/hit_functions_utils.c	\
 				./src/world/objects/hit_functions.c			\
 				./src/world/objects/normal_functions.c		\
@@ -29,6 +30,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/parsing/parsing_utils_1.c			 	\
 				./src/parsing/parsing_utils_2.c			 	\
 				./src/ray/ray.c								\
+				./src/rendering/random.c					\
 				./src/rendering/scene_render.c				\
 				./src/rendering/trace.c						\
 				./src/rendering/shading.c					\

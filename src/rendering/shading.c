@@ -1,6 +1,6 @@
 #include "render.h"
 
-t_color   phong_lightning(const t_object *obj, const t_light* light,
+/* t_color   phong_lightning(const t_object *obj, const t_light* light,
                             const t_ray* eye_ray, t_vec4 normal)
 {
     t_phong p;
@@ -20,4 +20,14 @@ t_color   phong_lightning(const t_object *obj, const t_light* light,
     p.specular = vector_from_float(light->brightness *
                              obj->material[SPECULAR] * p.factor);
     return (p.ambient + p.diffuse + p.specular);
+} */
+
+
+void        get_shading_info(t_shading* shade_info, const t_ray* ray,
+                                const t_light* l)
+{
+    shade_info->hit_point = ray_at(ray, shade_info->t);
+    shade_info->normal_at = shade_info->obj_hit->normal_get
+                            (shade_info->obj_hit, ray, shade_info->t);
+    shade_info->light_dir = -(shade_info->hit_point - l->pos);
 }

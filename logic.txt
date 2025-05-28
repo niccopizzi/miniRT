@@ -1,0 +1,26 @@
+TraceRay(ray, depth)
+{
+    if(depth > maximal depth)
+    return 0;
+    find closest ray object/intersection;
+    if(intersection exists)
+    {
+        for each light source in the scene
+        {
+            if(light source is visible)
+            {
+                illumination += light contribution;
+            }
+        }
+        if(surface is reflective)
+        {
+            illumination += TraceRay(reflected ray, depth+1);
+        }
+        if(surface is transparent)
+        {
+            illumination += TraceRay(refracted ray, depth+1);
+        }
+    return illumination modulated according to the surface properties;
+    }
+    else return EnvironmentMap(ray);
+}

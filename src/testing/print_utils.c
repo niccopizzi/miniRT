@@ -22,17 +22,11 @@ void    vector_print(char* name, t_vec4 v)
 
 void    print_world(t_world *world)
 {
-    printf("AMBIENT LIGHT\nCOLOR: %f %f %f\nRATIO: %f\n",
-     world->a_light.color[0], world->a_light.color[1], world->a_light.color[2], 
-     world->a_light.ratio);
-    printf("LIGHT\nPOS %f %f %f\nCOLOR %f %f %f\nBRIGHTNESS %f\n", 
-    world->light_src.pos[0], world->light_src.pos[1], world->light_src.pos[2],
-    world->light_src.color[0],world->light_src.color[1], world->light_src.color[2], 
-    world->light_src.brightness);
-    printf("CAM\nORIGIN %f %f %f\nFORWARD %f %f %f\n", 
-            world->cam.origin[0], world->cam.origin[1], world->cam.origin[2],
-            world->cam.forward[0], world->cam.forward[1], world->cam.forward[2]);
-    t_object *ptr = (t_object*)world->objects.data;
+    vector_print("Ambient color", world->ambient);
+    vector_print("Light pos", world->lights.pos);
+    vector_print("Light color", world->lights.color);
+    vector_print("Cam origin", world->cam.origin);
+    //t_object *ptr = (t_object*)world->objects.data;
     /* for (size_t i; i < world->objects.size; i++)
     {
         switch (ptr[i].type)

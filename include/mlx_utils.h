@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/26 20:05:25 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/28 12:42:01 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,21 @@ typedef struct s_ptrs
 int     window_close(t_ptrs *ptrs);
 void    connection_init(t_ptrs* ptrs, t_image* img, t_world* world);
 void    image_pixel_put(t_image *image, int x, int y, int color);
-int     hooks_key(int key, t_ptrs *ptrs);
+int     keys_hook(int key, t_ptrs *ptrs);
 void    hooks_set_up(t_ptrs *ptrs);
 int     to_rgb(t_color color);
 int     reload(t_ptrs* ptrs);
+
+void    rotate_around_up_axis(float theta, t_vec4 axis, t_cam* c);
+void    rotate_around_right_axis(float theta, t_vec4 axis, t_cam* c);
+void    handle_cam_rotation(int key, t_cam* c);
+void    handle_cam_movement(int key, t_cam* c);
 
 
 //Forward declarations
 void    render_scene(t_ptrs* ptrs, t_world* world);
 void    camera_setup(t_cam* c);
 bool    is_valid_file(char *filename, t_world *world);
-/* 
-void    display_light_palette(t_ptrs ptrs, t_image img);
-void    draw_vertical_line(t_ptrs *ptrs, int x, int y, int max_y, int color);
-void    draw_horizontal_line(t_ptrs *ptrs, int x, int y, int max_x, int color);
-void    draw_plus_button(t_ptrs *ptrs, int x, int y, int color); */
+
 
 #endif // MLX_UTILS_H

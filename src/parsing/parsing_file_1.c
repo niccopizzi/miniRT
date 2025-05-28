@@ -3,22 +3,23 @@
 
 bool    parse_ambient_light(char *line, t_world *world)
 {
-    t_ambient_light a_light;
+    float   ratio;
+    t_vec4  color;
     
     if (!skip_space_and_check(&line, ERR A_LIGHT))
         return (false);
     if (!is_valid_float(line))
         return (printf(ERR A_LIGHT RATIO INV_FLOAT), false);
-    line = ft_strtof(line, &a_light.ratio);
-    if (a_light.ratio < 0 || a_light.ratio > 1)
+    line = ft_strtof(line, &ratio);
+    if (ratio < 0.0f || ratio > 1.0f)
         return (printf(ERR A_LIGHT RATIO OOR), false);
     if (!skip_space_and_check(&line, ERR A_LIGHT))
         return (false);
-    if (!parse_rgb(&line, &a_light.color))
+    if (!parse_rgb(&line, &color))
         return (printf(ERR A_LIGHT RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR A_LIGHT ENDLINE_ERR), false);
-    world->a_light = a_light;
+    world->ambient = color * ratio;
     return (true);
 }
 
@@ -70,8 +71,9 @@ bool    parse_light(char *line, t_world *world)
         return (printf(ERR LIGHT RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR LIGHT ENDLINE_ERR), false);
+    l.effective = l.brightness * l.color;
     l.move = false;
-    world->light_src = l;
+    world->lights = l;
     return (true);
 }
 

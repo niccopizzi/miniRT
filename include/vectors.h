@@ -14,9 +14,9 @@ typedef     t_vec4  t_point4;
 typedef     t_vec4  t_color;
  
 
-#define PI          3.141593
-#define INVPI       0.318309
-#define EPSILON     0.000001
+#define PI          (float)3.141593
+#define INVPI       (float)0.318309
+#define EPSILON     (float)0.000001
 
 t_vec4      vector_negate(t_vec4 vector);
 float       vector_dot_product(t_vec4 vector1, t_vec4 vector2);

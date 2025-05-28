@@ -8,7 +8,7 @@ typedef struct s_cam
 {
     int         rotate;
     float       fov;
-    float       distance;
+    float       scale;
     t_mat4      to_world;
     t_point4    origin;
     t_vec4      forward;
@@ -16,16 +16,12 @@ typedef struct s_cam
     t_vec4      right;
 }   t_cam;
 
-typedef struct s_ambient_light
-{
-    float       ratio;
-    t_color     color;
-}   t_ambient_light;
 
 typedef struct s_light
 {
     float           brightness;
     t_color         color;
+    t_color         effective;
     t_point4        pos;
     bool            move;
 }   t_light;
@@ -33,8 +29,9 @@ typedef struct s_light
 
 typedef struct s_world
 {
-    t_ambient_light a_light;
-    t_light         light_src;
+    t_color         background;
+    t_color         ambient;
+    t_light         lights;
     t_cam           cam;
     t_da            objects;
 } t_world;
@@ -45,6 +42,8 @@ typedef struct s_world
 t_mat4      camera_to_world(t_cam* cam);
 void        camera_setup(t_cam* c);
 void        world_setup(t_world* world);
+float       get_camera_x(int x, float scale);
+float       get_camera_y(int y, float scale);
 
 
 void    print_world(t_world *world);
