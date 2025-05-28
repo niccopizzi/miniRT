@@ -20,6 +20,27 @@ void    vector_print(char* name, t_vec4 v)
     printf("Printing vector : %s\n%f %f %f %f\n", name, v[0], v[1], v[2], v[3]);
 }
 
+int usage_print(void)
+{
+    printf("Welcome to miniRT!\n");
+    printf("Usage: miniRT [options] <filename>\n\n");
+
+    printf("Options:\n");
+    printf("  -h              Display this help text and exit\n\n");
+
+    printf("Render Commands:\n");
+    printf("  r               Re-parse the scene file and render again\n");
+    printf("  c               Toggle camera control between movement and rotation\n");
+    printf("  l               Enable light movement\n");
+    printf("  Mouse Left      Move the light to the mouse click location (if enabled)\n");
+    printf("  +               Zoom in\n");
+    printf("  -               Zoom out\n");
+    printf("  Arrow Keys      Move or rotate the camera based on the current mode\n");
+
+    return (0);
+}
+
+
 void    print_world(t_world *world)
 {
     vector_print("Ambient color", world->ambient);

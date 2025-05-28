@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 #define MAX_DEPTH 5
-#define BIAS (float)1e-3
+#define BIAS (float)0.0001
 
 typedef struct s_shading
 {

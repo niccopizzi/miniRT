@@ -5,7 +5,7 @@ bool    parse_ambient_light(char *line, t_world *world)
 {
     float   ratio;
     t_vec4  color;
-    
+
     if (!skip_space_and_check(&line, ERR A_LIGHT))
         return (false);
     if (!is_valid_float(line))
@@ -77,31 +77,53 @@ bool    parse_light(char *line, t_world *world)
     return (true);
 }
 
+bool    parse_on_identifier(char* trim, t_world* world, int* declared)
+{
+    if (trim[0] == 'A' && trim[1] == ' ')
+    {
+        if (declared[0])
+            return (printf(ERR A_LIGHT MULT), false);
+        declared[0] ++;
+        return(parse_ambient_light(trim + 1, world));
+    }
+    else if (trim[0] == 'C' && trim[1] == ' ')
+    {
+        if (declared[1])
+            return (printf(ERR CAM MULT), false);
+        declared[1] ++;
+        return(parse_camera(trim + 1, world));
+    }
+    else if (trim[0] == 'L' && trim[1] == ' ')
+        return (parse_light(trim + 1, world));
+    else if (trim[0] == 's' && trim[1] == 'p' && trim[2] == ' ')
+        return (parse_sphere(trim + 2, world));
+    else if (trim[0] == 'p' && trim[1] == 'l' && trim[2] == ' ')
+        return (parse_plane(trim + 2, world));
+    else if (trim[0] == 'c' && trim[1] == 'y' && trim[2] == ' ')
+        return (parse_cylinder(trim + 2, world));
+    else if (trim[0] != '\n')
+        return (printf(ERR UNKOWN_INPUT), false);
+    return (true);
+}
+
 bool    parse_file(int fd, t_world *world)
 {
     char    *line;
     char    *trim;
+    int     declared[2];
     bool    valid;
 
     valid = true;
+    declared[0] = 0;
+    declared[1] = 0;
     while(valid && get_next_line(fd, &line))
     {
         trim = ft_strtrim(line, " \t");
-        if (trim[0] == 'A' && trim[1] == ' ')
-            valid = parse_ambient_light(trim + 1, world);
-        else if (trim[0] == 'C' && trim[1] == ' ')
-            valid = parse_camera(trim + 1, world);
-        else if (trim[0] == 'L' && trim[1] == ' ')
-            valid = parse_light(trim + 1, world);
-        else if (trim[0] == 's' && trim[1] == 'p' && trim[2] == ' ')
-            valid = parse_sphere(trim + 2, world);
-        else if (trim[0] == 'p' && trim[1] == 'l' && trim[2] == ' ')
-            valid = parse_plane(trim + 2, world);
-        else if (trim[0] == 'c' && trim[1] == 'y' && trim[2] == ' ')
-            valid = parse_cylinder(trim + 2, world);
-        else if (trim[0] != '\n')
-            printf(ERR UNKOWN_INPUT), valid = false;
-        free(line), free(trim), line = NULL, trim = NULL;
+        valid = parse_on_identifier(trim, world, declared);
+        free(line), 
+        free(trim), 
+        line = NULL, 
+        trim = NULL;
     }
     return (valid);
 }

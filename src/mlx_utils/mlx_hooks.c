@@ -48,8 +48,8 @@ int     mouse_hook(int button, int x, int y, t_ptrs* ptrs)
         dir = matrix4_mult_vec4(&ptrs->world->cam.to_world, dir);
         t = (ptrs->world->lights.pos[2] - ptrs->world->cam.origin[2]) / dir[2];
         p = ptrs->world->cam.origin + t * dir;
-        ptrs->world->lights.pos[0] = -p[0];
-        ptrs->world->lights.pos[1] = -p[1];
+        ptrs->world->lights.pos[0] = p[0];
+        ptrs->world->lights.pos[1] = p[1];
         render_scene(ptrs, ptrs->world);
     }
     return (1);

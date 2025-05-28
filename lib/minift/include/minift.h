@@ -82,4 +82,5 @@ size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
 char    *ft_strtof(char *str, float *f);
 char	*ft_strnstr(const char *big, const char *little, size_t n);
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif // MINIFT_H

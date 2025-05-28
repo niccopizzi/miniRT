@@ -3,7 +3,7 @@
 void   object_material_setup(t_object* obj)
 {
     obj->material[SHININESS] = 200.0;
-    obj->material[DIFFUSE] = 1.0;
+    obj->material[DIFFUSE] = 0.4;
     obj->material[SPECULAR] = 0.9;
 }
 

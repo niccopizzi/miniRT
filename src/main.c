@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:29:48 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/28 09:13:43 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/28 16:03:36 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
     ft_bzero(&world, sizeof(t_world));
     if (argc == 1 || !argv[1][0])
         return (printf(ERR NO_FILE), 1);
+    if (ft_strncmp("-h", argv[1], 3) == 0)
+        return (usage_print());
     if (!da_init(&world.objects, OBJECT_CAPACITY, sizeof(t_object)))
         return (printf(ERR MALLOC_ERR), 2);
     if (!is_valid_file(argv[1], &world))

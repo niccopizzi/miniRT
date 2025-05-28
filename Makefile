@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
+CFLAGS = -Wall -Wextra -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
 SQUARE = -D IMG_RATIO=1
 NAME = miniRT
 

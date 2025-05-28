@@ -39,9 +39,9 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
     obj_size = world->objects.size;
     i = 0;
     shadow_ray = ray_create(origin, (info->light_dir), SHADOW);
-    t = START_VAL;
     while (i < obj_size)
     {
+        t = START_VAL;
         if (obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) 
                 && t < info->distance)
             return (true);

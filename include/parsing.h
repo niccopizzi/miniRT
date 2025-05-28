@@ -50,6 +50,8 @@ bool    is_valid_vector(t_vec4 *vec, float min, float max, char *msg);
 
 
 //PARSE FUNCTIONS
+
+bool    parse_on_identifier(char* trim, t_world* world, int* declared);
 bool    parse_file(int fd, t_world *world);
 bool    parse_rgb(char **line, t_color *color);
 bool    parse_vector_or_point(char **line, t_vec4* value, 

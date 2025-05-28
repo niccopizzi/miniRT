@@ -9,16 +9,17 @@ SRC_DIR		= src/
 OBJ_DIR 	= obj/
 HEADER		= include/minift.h
 
-SRC			= 	ft_atoi.c \
-				ft_bzero.c \
-				ft_da.c \
-				ft_get_next_line.c \
-				ft_isspace.c \
-				ft_memcpy.c \
-				ft_strdup.c \
-				ft_strlen.c \
-				ft_strnstr.c \
-				ft_strtof.c \
+SRC			= 	ft_atoi.c				\
+				ft_bzero.c				\
+				ft_da.c					\
+				ft_get_next_line.c 		\
+				ft_isspace.c 			\
+				ft_memcpy.c 			\
+				ft_strdup.c 			\
+				ft_strlen.c 			\
+				ft_strnstr.c 			\
+				ft_strtof.c 			\
+				ft_strncmp.c 			\
 				ft_strtrim.c 
 
 OBJ			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

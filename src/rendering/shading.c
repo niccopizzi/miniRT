@@ -3,23 +3,21 @@
 t_color     color_at_hit(t_shading* info, const t_light* l, const t_world* w)
 {
     float   lambertian;
-    float   specular;  
+    float   specular;
     t_vec4  half_way;
     t_color ret;
 
     ret = w->ambient * info->obj_hit->color;
-    lambertian = vector_dot_product(info->normal_at, info->light_dir);
-    if (lambertian < 0.0f)
-        return (ret);
-    ret += info->obj_hit->color * l->effective * lambertian;
+    lambertian = fmaxf(0.0f, 
+            vector_dot_product(info->normal_at, info->light_dir));
+    ret += info->obj_hit->color * l->effective * lambertian 
+            * info->obj_hit->material[DIFFUSE];
     half_way = vector_normalize
                     (info->light_dir - info->hitting_ray->direction);
-    specular = vector_dot_product(info->normal_at, half_way);
-    if (specular < 0.0f)
-        return (ret);
+    specular = fmaxf(0.0f, vector_dot_product(info->normal_at, half_way));
     specular = powf(specular, info->obj_hit->material[SHININESS]);
-    ret += info->obj_hit->color * info->obj_hit->material[SPECULAR] 
-            * l->effective * specular;
+    ret += vector_from_float(info->obj_hit->material[SPECULAR]) *
+                    l->effective * specular;
     return (ret);
 }
 
