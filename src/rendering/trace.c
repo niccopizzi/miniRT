@@ -38,8 +38,6 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
     obj_ptr = (t_object*)world->objects.data;
     obj_size = world->objects.size;
     i = 0;
-    info->distance = vector_len(info->light_dir);
-    info->light_dir /= info->distance;
     shadow_ray = ray_create(origin, (info->light_dir), SHADOW);
     t = START_VAL;
     while (i < obj_size)
@@ -64,13 +62,11 @@ t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
     ret_color = world->background;
     if (find_hit(ray, world, &info))
     {
-        ret_color = world->ambient;
         get_shading_info(&info, ray, &world->lights);
         if (is_in_shadow(info.hit_point + info.normal_at * BIAS, world,
                 &info))
-            return (ret_color);
-        ret_color += info.obj_hit->color * world->lights.effective * fmaxf(0.0f, vector_dot_product
-                            (info.normal_at, info.light_dir)); 
+            return (vector_from_float(0.0f));
+        ret_color = color_at_hit(&info, &world->lights, world);
     }
     return (vector_clamp(ret_color, 0, 1));
 }

@@ -1,33 +1,37 @@
 #include "render.h"
 
-/* t_color   phong_lightning(const t_object *obj, const t_light* light,
-                            const t_ray* eye_ray, t_vec4 normal)
+t_color     color_at_hit(t_shading* info, const t_light* l, const t_world* w)
 {
-    t_phong p;
-    
-    p.effective = obj->color * light->brightness;
-    p.light_vector = -vector_normalize(light->pos - eye_ray->origin);
-    p.ambient = obj->material[AMBIENT] * p.effective;
-    p.ldn = vector_dot_product(p.light_vector, normal);
-    if (p.ldn < 0)
-        return (p.ambient);
-    p.diffuse = p.effective * obj->material[DIFFUSE] * p.ldn;
-    p.reflected_ray = vector_reflect(-p.light_vector, normal);
-    p.rdd = vector_dot_product(p.reflected_ray, eye_ray->direction);
-    if (p.rdd <= 0)
-        return (p.ambient + p.diffuse);
-    p.factor = powf(p.rdd, obj->material[SHININESS]);
-    p.specular = vector_from_float(light->brightness *
-                             obj->material[SPECULAR] * p.factor);
-    return (p.ambient + p.diffuse + p.specular);
-} */
+    float   lambertian;
+    float   specular;  
+    t_vec4  half_way;
+    t_color ret;
 
+    ret = w->ambient * info->obj_hit->color;
+    lambertian = vector_dot_product(info->normal_at, info->light_dir);
+    if (lambertian < 0.0f)
+        return (ret);
+    ret += info->obj_hit->color * l->effective * lambertian;
+    half_way = vector_normalize
+                    (info->light_dir - info->hitting_ray->direction);
+    specular = vector_dot_product(info->normal_at, half_way);
+    if (specular < 0.0f)
+        return (ret);
+    specular = powf(specular, info->obj_hit->material[SHININESS]);
+    ret += info->obj_hit->color * info->obj_hit->material[SPECULAR] 
+            * l->effective * specular;
+    return (ret);
+}
 
 void        get_shading_info(t_shading* shade_info, const t_ray* ray,
                                 const t_light* l)
 {
+    shade_info->hitting_ray = ray;
     shade_info->hit_point = ray_at(ray, shade_info->t);
     shade_info->normal_at = shade_info->obj_hit->normal_get
                             (shade_info->obj_hit, ray, shade_info->t);
-    shade_info->light_dir = -(shade_info->hit_point - l->pos);
+    shade_info->light_dir = -(shade_info->hit_point - l->pos); //get light ray direction
+    shade_info->distance = vector_len(shade_info->light_dir); //get the distance from the point hit to the light 
+    shade_info->light_dir /= shade_info->distance; //normalize the direction for correct shading
+
 }
