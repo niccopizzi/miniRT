@@ -1,6 +1,22 @@
 #include "objects.h"
 #include "world.h"
 
+bool    cone_add_to_objects(t_object* co, t_world* world)
+{
+    t_object    bottom_cap;
+
+    bottom_cap.color = co->color;
+    bottom_cap.point = co->center - co->axis * co->half_height;
+    bottom_cap.normal = -co->axis;
+    bottom_cap.radius = co->radius;
+    bottom_cap.material = co->material;  
+    bottom_cap.hit = disk_hit;
+    bottom_cap.normal_get = plane_normal;
+    bottom_cap.father = co;
+    return (da_append(&world->objects, &bottom_cap) 
+            && da_append(&world->objects, co)); 
+}
+
 bool    cylinder_add_to_objects(t_object* cy, t_world* world)
 {
     t_object    bottom_cap;

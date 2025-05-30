@@ -60,24 +60,51 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
 
  bool    cylinder_hit(const t_object* cy, const t_ray* r, double *t_min)
  {
-    t_vec4          x;
+    t_point4        hit_point;
     double          t;
     t_cy_equation   eq;
 
-    x = r->origin - cy->center;
+    eq.x = r->origin - cy->center;
     eq.dv = vector_dot_product(r->direction, cy->axis);
-    eq.xv = vector_dot_product(x, cy->axis);
+    eq.xv = vector_dot_product(eq.x, cy->axis);
     eq.a = vector_dot_product(r->direction, r->direction) - eq.dv * eq.dv;
-    eq.b = vector_dot_product(r->direction, x) - eq.dv * eq.xv;
-    eq.c = vector_dot_product(x, x) - eq.xv * eq.xv - cy->radius * cy->radius;
+    eq.b = vector_dot_product(r->direction, eq.x) - eq.dv * eq.xv;
+    eq.c = vector_dot_product(eq.x, eq.x) - eq.xv * eq.xv - cy->radius * cy->radius;
     eq.discr = eq.b * eq.b - eq.a * eq.c;
     if (eq.discr < 0)
         return (false);
     eq.discr = sqrt(eq.discr);
     t = (-eq.b - eq.discr) / eq.a;
-    if (is_inside_cap(ray_at(r, t), cy) && check_t(t, t_min))
+    hit_point = ray_at(r, t);
+    if (is_inside_cy(hit_point, cy) && check_t(t, t_min))
         return (true);
     t = (-eq.b + eq.discr) / eq.a;
-    return (is_inside_cap(ray_at(r, t), cy) && check_t(t, t_min));
+    return (is_inside_cy(hit_point, cy) && check_t(t, t_min));
  }
  
+ bool   cone_hit(const t_object* co, const t_ray* r, double* t_min)
+ {
+    double          t;
+    double          k2;
+    t_co_equation   eq;
+    t_point4        hit_point;
+
+    k2 = (co->k * co->k) + 1;
+    eq.x = r->origin - co->center;
+    eq.dv = vector_dot_product(r->direction, co->axis);
+    eq.xv = vector_dot_product(eq.x, co->axis);
+    eq.a = vector_dot_product(r->direction, r->direction) - k2 * (eq.dv * eq.dv);
+    eq.b = vector_dot_product(r->direction, eq.x) - k2 * eq.dv * eq.xv;
+    eq.c = vector_dot_product(eq.x, eq.x) - eq.xv * eq.xv * k2;
+    eq.discr = eq.b * eq.b - eq.a * eq.c;
+    if (eq.discr < 0)
+        return (false);
+    eq.discr = sqrt(eq.discr);
+    t = (-eq.b - eq.discr) / eq.a;
+    hit_point = ray_at(r, t);
+    if (is_inside_co(hit_point, co) && check_t(t, t_min))
+        return (true);
+    t = (-eq.b + eq.discr) / eq.a;
+    return (is_inside_co(hit_point, co) && check_t(t, t_min));
+ }
+

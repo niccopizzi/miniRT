@@ -18,6 +18,7 @@
 #define SPHERE "Sphere: "
 #define PLANE "Plane: "
 #define CYLINDER "Cylinder: "
+#define CONE "Cone : "
 #define RATIO "ratio: "
 #define FOV "field of view: "
 #define O_VEC "orientation vector: "
@@ -61,5 +62,5 @@ bool    parse_vector_or_point(char **line, t_vec4* value,
 bool    parse_sphere(char *line, t_world *world);
 bool    parse_plane(char *line, t_world *world);
 bool    parse_cylinder(char *line, t_world *world);
-
+bool    parse_cone(char* line, t_world* world);
 #endif // PARSING_H

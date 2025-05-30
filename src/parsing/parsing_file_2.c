@@ -27,25 +27,25 @@ bool    parse_sphere(char *line, t_world *world)
     return (da_append(&world->objects, &sphere));
 }
 
-bool    parse_cylinder_two(char *line, t_world *world, t_object cy)
+bool    parse_cylinder_two(char *line, t_world *world, t_object* cy)
 {
     if (!is_valid_float(line))
         return (printf(ERR CYLINDER INV_FLOAT), false);
-    line = ft_strtof(line, &cy.radius);
-    cy.radius *= 0.5;
+    line = ft_strtof(line, &cy->radius);
+    cy->radius *= 0.5;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
     if (!is_valid_float(line))
         return (printf(ERR CYLINDER INV_FLOAT), false);
-    line = ft_strtof(line, &cy.half_height);
+    line = ft_strtof(line, &cy->half_height);
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
-    cy.half_height *= 0.5;
-    if (!parse_rgb(&line, &cy.color))
+    cy->half_height *= 0.5;
+    if (!parse_rgb(&line, &cy->color))
         return (printf(ERR CYLINDER RGB_ERR), false);
     if (*line != 0)
         return (printf(ERR CYLINDER ENDLINE_ERR), false);
-    return (cylinder_add_to_objects(&cy, world));
+    return (cylinder_add_to_objects(cy, world));
 }
 
 bool    parse_cylinder(char *line, t_world *world)
@@ -66,7 +66,7 @@ bool    parse_cylinder(char *line, t_world *world)
     cylinder.axis = vector_normalize(cylinder.axis);
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
-    return (parse_cylinder_two(line, world, cylinder));
+    return (parse_cylinder_two(line, world, &cylinder));
 }
 
 bool    parse_plane(char *line, t_world *world)

@@ -19,15 +19,16 @@ MY_SOURCES = ./src/main.c 			\
 				./src/mlx_utils/reload.c				 	\
 				./src/mlx_utils/mlx_utils_1.c				\
 				./src/mlx_utils/mlx_utils_2.c				\
-				./src/world/objects/hit_functions_utils.c	\
-				./src/world/objects/hit_functions.c			\
-				./src/world/objects/normal_functions.c		\
-				./src/world/objects/object_utils.c			\
+				./src/objects/hit_functions_utils_1.c	\
+				./src/objects/hit_functions.c			\
+				./src/objects/normal_functions.c		\
+				./src/objects/object_utils_1.c		\
 				./src/world/material.c						\
 				./src/world/camera.c						\
 				./src/world/world_setup.c					\
 				./src/parsing/parsing_file_1.c			 	\
 				./src/parsing/parsing_file_2.c			 	\
+				./src/parsing/parsing_file_3.c			 	\
 				./src/parsing/parsing_utils_1.c			 	\
 				./src/parsing/parsing_utils_2.c			 	\
 				./src/ray/ray.c								\

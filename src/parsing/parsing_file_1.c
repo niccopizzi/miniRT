@@ -101,6 +101,8 @@ bool    parse_on_identifier(char* trim, t_world* world, int* declared)
         return (parse_plane(trim + 2, world));
     else if (trim[0] == 'c' && trim[1] == 'y' && trim[2] == ' ')
         return (parse_cylinder(trim + 2, world));
+    else if (trim[0] == 'c' && trim[1] == 'o' && trim[2] == ' ')
+        return (parse_cone(trim + 2, world));
     return (printf(ERR UNKOWN_INPUT), false);
 }
 
