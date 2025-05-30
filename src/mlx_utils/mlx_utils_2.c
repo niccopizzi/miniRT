@@ -52,9 +52,9 @@ void     handle_cam_movement(int key, t_cam* c)
     else if (key == XK_Right)
         c->origin += c->right * 2.f;
     else if (key == XK_Up)
-        c->origin -= (c->up * 2.f);
-    else if (key == XK_Down)
         c->origin += (c->up * 2.f);
+    else if (key == XK_Down)
+        c->origin -= (c->up * 2.f);
     else if (key == XK_plus || key == Custom_plus)
         c->origin += c->forward * 1.5;
     else if (key == XK_minus || key == Custom_minus)

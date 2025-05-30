@@ -42,8 +42,7 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
     while (i < obj_size)
     {
         t = START_VAL;
-        if (info->obj_hit->father != obj_ptr[i].father 
-                && obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) 
+        if (obj_ptr[i].hit(&obj_ptr[i], &shadow_ray, &t) 
                 && t < info->distance)
             return (true);
         i++;
@@ -63,11 +62,11 @@ t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
     ret_color = world->background;
     if (find_hit(ray, world, &info))
     {
-        get_shading_info(&info, ray, &world->lights);
+        get_shading_info(&info, ray, world);
         if (is_in_shadow(info.hit_point + info.normal_at * BIAS, world,
                 &info))
-            return (0.5 * world->background);
-        ret_color = color_at_hit(&info, &world->lights, world);
+            return (info.ambient);
+        ret_color = color_at_hit(&info, &world->lights);
     }
     return (ret_color);
 }
