@@ -1,7 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "matrix.h"
+#include "ray.h"
 #include "../lib/minift/include/minift.h"
 
 typedef struct s_cam
@@ -16,7 +16,6 @@ typedef struct s_cam
     t_vec4      right;
 }   t_cam;
 
-
 typedef struct s_light
 {
     float           brightness;
@@ -27,14 +26,17 @@ typedef struct s_light
 }   t_light;
 
 
-typedef struct s_world
+typedef struct s_world t_world;
+
+struct s_world
 {
+    t_color         (*get_color)(int x, int y, const t_world* world, t_ray* r);
     t_color         background;
     t_color         ambient;
     t_light         lights;
     t_cam           cam;
     t_da            objects;
-} t_world;
+};
 
 
 /*Return the matrix to transform the direction of a ray originated from
@@ -45,6 +47,10 @@ void        world_setup(t_world* world);
 float       get_camera_x(int x, float scale);
 float       get_camera_y(int y, float scale);
 
-
 void    print_world(t_world *world);
+
+//Forward declaration
+
+t_color     calculate_color(int x, int y, const t_world* world, t_ray* r);
+t_color     sample_pixel(int x, int y, const t_world* world, t_ray* r);
 #endif

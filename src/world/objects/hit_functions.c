@@ -39,8 +39,8 @@ bool    disk_hit(const t_object* ds, const t_ray* r, double* t_min)
 
 bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
 {
-    t_sp_val    v;
-    t_vec4      oc;
+    t_sp_equation   v;
+    t_vec4          oc;
 
     oc = r->origin - sp->center;
     v.a = vector_dot_product(r->direction, r->direction);
@@ -80,4 +80,4 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
     t = (-eq.b + eq.discr) / eq.a;
     return (is_inside_cap(ray_at(r, t), cy) && check_t(t, t_min));
  }
-
+ 

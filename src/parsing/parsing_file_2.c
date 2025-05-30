@@ -22,7 +22,7 @@ bool    parse_sphere(char *line, t_world *world)
         return (false);
     if (!parse_rgb(&line, &sphere.color))
         return (printf(ERR SPHERE RGB_ERR), false);
-    if (*line != '\n')
+    if (*line != 0)
         return (printf(ERR SPHERE ENDLINE_ERR), false);
     return (da_append(&world->objects, &sphere));
 }
@@ -43,7 +43,7 @@ bool    parse_cylinder_two(char *line, t_world *world, t_object cy)
     cy.half_height *= 0.5;
     if (!parse_rgb(&line, &cy.color))
         return (printf(ERR CYLINDER RGB_ERR), false);
-    if (*line != '\n')
+    if (*line != 0)
         return (printf(ERR CYLINDER ENDLINE_ERR), false);
     return (cylinder_add_to_objects(&cy, world));
 }
@@ -89,7 +89,7 @@ bool    parse_plane(char *line, t_world *world)
         return (false);
     if (!parse_rgb(&line, &plane.color))
         return (printf(ERR PLANE RGB_ERR), false);
-    if (*line != '\n')
+    if (*line != 0)
         return (printf(ERR PLANE ENDLINE_ERR), false);
     return (da_append(&world->objects, &plane));
 }

@@ -2,7 +2,6 @@
 #define RAY_H
 
 #include "matrix.h"
-#include "world.h"
 #include <limits.h>
 
 #define START_VAL 100000

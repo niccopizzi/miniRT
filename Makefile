@@ -1,5 +1,4 @@
-CFLAGS = -Wall -Wextra -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
-SQUARE = -D IMG_RATIO=1
+CFLAGS = -Wall -Wextra -Werror -Warray-bounds --fast-math  -msse2 -march=native -mavx2 -O2 -I./include
 NAME = miniRT
 
 LIBFT_DIR = ./lib/minift
@@ -11,6 +10,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/math/matrix/matrix_SIMD_op3.c			\
 				./src/math/matrix/matrix_SIMD_op4.c			\
 				./src/math/matrix/matrix_SIMD_op5.c			\
+				./src/math/quaternions/quaternions_op1.c	\
 				./src/math/vector/vector_SIMD_op1.c			\
 				./src/math/vector/vector_SIMD_op2.c			\
 				./src/math/vector/vector_SIMD_op3.c			\
@@ -23,6 +23,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/world/objects/hit_functions.c			\
 				./src/world/objects/normal_functions.c		\
 				./src/world/objects/object_utils.c			\
+				./src/world/material.c						\
 				./src/world/camera.c						\
 				./src/world/world_setup.c					\
 				./src/parsing/parsing_file_1.c			 	\
@@ -44,13 +45,8 @@ $(NAME): $(MY_SOURCES)
 	@echo "... Amazing! I managed to compile $(NAME)"
 
 %.o :%.c
-	@cc $(CFLAGS) -g -c $< -o $@ 
+	@cc $(CFLAGS) -c $< -o $@ 
 	@echo "$< compiled."
-
-
-square: 
-	@cc $(CFLAGS) $(SQUARE) $(MY_SOURCES) $(LIB) -o $(NAME)
-	@echo "COMPILED THE SQUARED MOTAFAKKA!"
 	
 clean:
 	@cd $(LIBFT_DIR) && $(MAKE) clean

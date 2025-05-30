@@ -17,17 +17,14 @@ int    keys_hook(int key, t_ptrs* ptrs)
         return (reload(ptrs));
     if (key == XK_c)
         ptrs->world->cam.rotate = !ptrs->world->cam.rotate;
+    else if (key == XK_a)
+        toggle_antialiasing(ptrs->world);
     else if (key == XK_l)
         ptrs->world->lights.move = !ptrs->world->lights.move;
-    else if (key == XK_plus || key == Custom_plus)
-        ptrs->world->cam.origin += ptrs->world->cam.forward * 1.5;
-    else if (key == XK_minus || key == Custom_minus)
-        ptrs->world->cam.origin -= ptrs->world->cam.forward * 1.5;
     else if (ptrs->world->cam.rotate)
         handle_cam_rotation(key, &ptrs->world->cam);
     else
         handle_cam_movement(key, &ptrs->world->cam);
-    camera_setup(&ptrs->world->cam);
     render_scene(ptrs, ptrs->world);
     return (1);
 }
@@ -54,7 +51,6 @@ int     mouse_hook(int button, int x, int y, t_ptrs* ptrs)
     }
     return (1);
 }
-
 
 void    hooks_set_up(t_ptrs* ptrs)
 {

@@ -26,12 +26,13 @@ inline float    get_camera_y(int y, float scale)
 
 void    camera_setup(t_cam* c)
 {
-    c->up = (t_vec4){0, 1, 0, 0};
-    if (fabsf(vector_dot_product(c->up, c->forward)) == 1.f)
+    t_vec4  tmp_up = (t_vec4){0, 1, 0, 0};
+    
+    if (fabsf(vector_dot_product(tmp_up, c->forward)) > 1.0f - EPSILON)
     {
-        c->up = (t_vec4){0, 0, 1, 0};
+        tmp_up = (t_vec4){0, 0, 1, 0};
     }
-    c->right = vector_normalize(vector_cross_prod(c->forward, c->up));
+    c->right = vector_normalize(vector_cross_prod(c->forward, tmp_up));
     c->up = vector_normalize(vector_cross_prod(c->right, c->forward));
     c->scale = tan(c->fov * 0.5 * TO_RAD);
     c->to_world = camera_to_world(c);

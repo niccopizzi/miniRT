@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/28 12:42:01 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/05/30 08:30:28 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "../lib/minilibx-linux/mlx.h"
 #include "world.h"
-#include "matrix.h"
+#include "quaternions.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <X11/keysym.h>
@@ -58,7 +58,7 @@ void    rotate_around_up_axis(float theta, t_vec4 axis, t_cam* c);
 void    rotate_around_right_axis(float theta, t_vec4 axis, t_cam* c);
 void    handle_cam_rotation(int key, t_cam* c);
 void    handle_cam_movement(int key, t_cam* c);
-
+void    toggle_antialiasing(t_world* world);
 
 //Forward declarations
 void    render_scene(t_ptrs* ptrs, t_world* world);

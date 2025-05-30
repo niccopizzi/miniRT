@@ -36,9 +36,9 @@ int     to_rgb(t_color color)
     int g;
     int b;
     
-    r = 255.999 * (color)[0];
-    g = 255.999 * (color)[1];
-    b = 255.999 * (color)[2];
+    r = fminf(255.999 * (color)[0], 255);
+    g = fminf(255.999 * (color)[1], 255);
+    b = fminf(255.999 * (color)[2], 255);
     return (r << 16 | g << 8 | b);
 }
 

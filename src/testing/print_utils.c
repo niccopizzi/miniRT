@@ -31,7 +31,8 @@ int usage_print(void)
     printf("Render Commands:\n");
     printf("  r               Re-parse the scene file and render again\n");
     printf("  c               Toggle camera control between movement and rotation\n");
-    printf("  l               Enable light movement\n");
+    printf("  l               Enable/Disable light movement\n");
+    printf("  a               Enable/Disable antialiasing\n");
     printf("  Mouse Left      Move the light to the mouse click location (if enabled)\n");
     printf("  +               Zoom in\n");
     printf("  -               Zoom out\n");
@@ -47,32 +48,6 @@ void    print_world(t_world *world)
     vector_print("Light pos", world->lights.pos);
     vector_print("Light color", world->lights.color);
     vector_print("Cam origin", world->cam.origin);
-    //t_object *ptr = (t_object*)world->objects.data;
-    /* for (size_t i; i < world->objects.size; i++)
-    {
-        switch (ptr[i].type)
-        {
-        case SP:
-            printf("\n\nSPHERE\nCENTER: %f %f %f\nDIAMETER: %f\nRGB: %f %f %f\n", 
-            ptr[i].center[0],ptr[i].center[1],ptr[i].center[2],
-            ptr[i].radius, ptr[i].color[0], ptr[i].color[1], ptr[i].color[2]);
-            break;
-        case PL:
-            printf("\n\nPLANE\nPOINT: %f %f %f\nNORMAL %f %f %f\nRGB: %f %f %f\n", 
-            ptr[i].point[0], ptr[i].point[1], ptr[i].point[2], 
-            ptr[i].normal[0],ptr[i].normal[1], ptr[i].normal[2], 
-            ptr[i].color[0], ptr[i].color[1],  ptr[i].color[2]);
-            break;
-        case CY:
-            printf("\n\nCYLINDER\nCENTER: %f %f %f\nAXIS: %f %f %f\nDIAMETER: %f\nHEIGHT: %f\nRGB: %f %f %f\n", 
-            ptr[i].center[0], ptr[i].center[1], ptr[i].center[2],
-            ptr[i].axis[0], ptr[i].axis[1], ptr[i].axis[2], 
-            ptr[i].radius, ptr[i].height, 
-            ptr[i].color[0], ptr[i].color[1], ptr[i].color[2]);
-            break;
-        default:
-            printf("ERROR   \n");
-            break;
-        }
-    } */
+
+    printf("Objects size : %zu\n", world->objects.size);
 }

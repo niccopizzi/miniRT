@@ -38,6 +38,7 @@
 #define FILE_NOT_VALID "file not valid\n"
 #define MULT "cannot have more than 1\n"
 #define MISS_VAL "missing values\n"
+#define MISS_DECL "missing declaration\n"
 #define MISS_SPACE "missing space after values\n"
 #define ENDLINE_ERR "expected endline after values\n"
 #define MALLOC_ERR "malloc failed\n"
@@ -47,7 +48,7 @@ bool    is_valid_file(char *filename, t_world *world);
 bool    skip_space_and_check(char **line, char *msg);
 bool    is_valid_float(char *line);
 bool    is_valid_vector(t_vec4 *vec, float min, float max, char *msg);
-
+bool    check_if_declared(int* declared);
 
 //PARSE FUNCTIONS
 
