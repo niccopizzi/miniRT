@@ -10,7 +10,6 @@ MY_SOURCES = ./src/main.c 			\
 				./src/math/matrix/matrix_SIMD_op3.c			\
 				./src/math/matrix/matrix_SIMD_op4.c			\
 				./src/math/matrix/matrix_SIMD_op5.c			\
-				./src/math/quaternions/quaternions_op1.c	\
 				./src/math/vector/vector_SIMD_op1.c			\
 				./src/math/vector/vector_SIMD_op2.c			\
 				./src/math/vector/vector_SIMD_op3.c			\
@@ -19,11 +18,11 @@ MY_SOURCES = ./src/main.c 			\
 				./src/mlx_utils/reload.c				 	\
 				./src/mlx_utils/mlx_utils_1.c				\
 				./src/mlx_utils/mlx_utils_2.c				\
-				./src/objects/hit_functions_utils_1.c	\
-				./src/objects/hit_functions.c			\
-				./src/objects/normal_functions.c		\
-				./src/objects/object_utils_1.c		\
-				./src/world/material.c						\
+				./src/objects/hit_functions_utils_1.c		\
+				./src/objects/hit_functions.c				\
+				./src/objects/normal_functions.c			\
+				./src/objects/map_functions.c				\
+				./src/objects/object_utils_1.c				\
 				./src/world/camera.c						\
 				./src/world/world_setup.c					\
 				./src/parsing/parsing_file_1.c			 	\
@@ -32,7 +31,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/parsing/parsing_utils_1.c			 	\
 				./src/parsing/parsing_utils_2.c			 	\
 				./src/ray/ray.c								\
-				./src/rendering/random.c					\
+				./src/random/random.c						\
 				./src/rendering/scene_render.c				\
 				./src/rendering/trace.c						\
 				./src/rendering/shading.c					\
@@ -41,7 +40,7 @@ MY_SOURCES = ./src/main.c 			\
 all: $(NAME)
 
 $(NAME): $(MY_SOURCES)
-	@make -C $(LIBFT_DIR)
+	@make -j4 -C $(LIBFT_DIR)
 	@cc $(CFLAGS) $(MY_SOURCES) $(LIB) -o $(NAME) 
 	@echo "... Amazing! I managed to compile $(NAME)"
 

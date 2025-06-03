@@ -2,8 +2,8 @@
 #define OBJECTS_H
 
 #include "ray.h"
-#include "material.h"
 #include "../lib/minift/include/minift.h"
+
 
 //Forward declaration
 typedef struct s_shading    t_shading;
@@ -12,18 +12,18 @@ typedef struct s_world      t_world;
 
 struct s_object
 {
-    bool            (*hit)(const t_object*, const t_ray*, double* t_min);
-    t_vec4          (*normal_get)(const t_object*, t_shading* info);
+    bool            (*hit)(const t_object*, const t_ray*, double*);
+    t_vec4          (*normal_get)(const t_object*, t_shading*);
+    void            (*map)(const t_object*, const t_point4, float* u, float* v);
+    bool            checkered;
     float           radius;
+    float           r2;
     float           half_height;
     float           k;
-    t_material      material;
     t_point4        point;
     t_vec4          normal;
-    t_point4        center;
     t_vec4          axis;
     t_color         color;
-    t_object*       father;
 };
 
 //Struct used to store the values of the ray-sphere intersection equation
@@ -76,6 +76,11 @@ t_vec4  sphere_normal(const t_object* obj, t_shading* info);
 t_vec4  plane_normal(const t_object* obj, t_shading* info);
 t_vec4  cylinder_normal(const t_object* obj, t_shading* info);
 t_vec4  cone_normal(const t_object* obj, t_shading* info);
+
+
+void    sphere_map(const t_object* obj, const t_point4 p, float* u, float* v);
+void    plane_map(const t_object* obj, const t_point4 p, float* u, float* v);
+void    cylinder_map(const t_object* obj, const t_point4 p, float* u, float* v);
 
 bool    check_t(double t, double *t_min);
 bool    is_inside_cy(const t_point4 ray_at, const t_object* obj);

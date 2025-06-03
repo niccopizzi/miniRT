@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/05/30 08:30:28 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/03 00:44:39 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "../lib/minilibx-linux/mlx.h"
 #include "world.h"
-#include "quaternions.h"
+#include "matrix.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <X11/keysym.h>

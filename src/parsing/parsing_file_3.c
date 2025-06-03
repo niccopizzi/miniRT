@@ -1,5 +1,4 @@
 #include "parsing.h"
-#include "miniRT.h"
 
 bool    parse_cone_two(char* line, t_world* world, t_object* co)
 {
@@ -12,14 +11,14 @@ bool    parse_cone_two(char* line, t_world* world, t_object* co)
     if (!is_valid_float(line))
         return (printf(ERR  CONE INV_FLOAT), false);
     line = ft_strtof(line, &co->half_height);
-    co->half_height *= 0.5;
-    co->k = co->radius / co->half_height;
+    co->k = co->radius / (co->half_height);
     if (!skip_space_and_check(&line, ERR CONE))
         return (false);
     if (!parse_rgb(&line, &co->color))
         return (printf(ERR CONE RGB_ERR), false);
-    if (*line != 0)
-        return (printf(ERR CONE ENDLINE_ERR), false);
+    if (!parse_texture(&line, co, ERR CONE))
+        return (false);
+    co->r2 = co->radius * co->radius;
     return (cone_add_to_objects(co, world));
 }
 
@@ -27,12 +26,13 @@ bool    parse_cone(char* line, t_world* world)
 {
     t_object    cone;
 
+    ft_bzero(&cone, sizeof(t_object));
     cone.hit = cone_hit;
     cone.normal_get = cone_normal;
-    cone.father = &cone;
+    cone.map = cylinder_map;
     if (!skip_space_and_check(&line, ERR CONE))
         return (false);
-    if (!parse_vector_or_point(&line, &cone.center, 1.f, ERR CONE CENTER))
+    if (!parse_vector_or_point(&line, &cone.point, 1.f, ERR CONE CENTER))
         return (false);
     if (!skip_space_and_check(&line, ERR CONE))
         return (false);

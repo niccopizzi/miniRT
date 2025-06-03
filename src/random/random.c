@@ -1,3 +1,4 @@
+#include "world.h"
 #include "render.h"
 
 void    create_seed(void)

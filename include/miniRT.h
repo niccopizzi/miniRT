@@ -1,11 +1,8 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-#define OBJECT_CAPACITY 20
-
-#ifndef BONUS
-    #define BONUS 1
-#endif
+#define OBJECTS_CAPACITY 20
+#define LIGHTS_CAPACITY 5
 
 #include <time.h>
 #include "ray.h"

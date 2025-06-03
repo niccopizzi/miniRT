@@ -14,8 +14,9 @@ bool    is_inside_cy(const t_point4 ray_at, const t_object* obj)
 {
     float   dotprod;
 
-    dotprod = vector_dot_product(ray_at - obj->center, obj->axis);
-    return (dotprod > -obj->half_height && dotprod < obj->half_height);
+    dotprod = vector_dot_product(ray_at - obj->point, obj->axis);
+    return (dotprod > -obj->half_height + EPSILON
+                 && dotprod < obj->half_height - EPSILON);
         
 }
 
@@ -23,7 +24,7 @@ bool    is_inside_co(const t_point4 ray_at, const t_object* obj)
 {
     float   dotprod;
 
-    dotprod = vector_dot_product(ray_at - obj->center, obj->axis);
-    return (dotprod > -obj->half_height && dotprod < 0);
+    dotprod = vector_dot_product(ray_at - obj->point, obj->axis);
+    return (dotprod > -obj->half_height && dotprod < EPSILON);
         
 }

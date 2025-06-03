@@ -42,6 +42,8 @@ t_mat4      matrix4_rotate_z(float  rad);
 t_mat4      matrix4_translate(float tx, float ty, float tz);
 t_mat4      matrix4_scaling(float tx, float ty, float tz);
 t_mat4      matrix4_rodrigues_rot(t_vec4 axis, double angle);
+t_mat4      matrix4_to_world(t_vec4 axis, t_vec4 origin);
+
 
 t_mat2      matrix3_submatrix(const t_mat3* m, int row, int col);
 float       matrix3_minor(const t_mat3* m, int row, int col);

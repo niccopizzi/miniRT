@@ -26,8 +26,7 @@ bool    disk_hit(const t_object* ds, const t_ray* r, double* t_min)
     t = vector_dot_product(ds->point - r->origin, ds->normal) / dotprod;
     if (t > EPSILON)
     {
-        if (vector_len_squared(ray_at(r, t) - ds->point) <= 
-                (ds->radius * ds->radius))
+        if (vector_len_squared(ray_at(r, t) - ds->point) <= ds->r2)
         {
             *t_min = t;
             return (true);
@@ -42,10 +41,10 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
     t_sp_equation   v;
     t_vec4          oc;
 
-    oc = r->origin - sp->center;
+    oc = r->origin - sp->point;
     v.a = vector_dot_product(r->direction, r->direction);
     v.b = 2.0 * (vector_dot_product(r->direction, oc));
-    v.c = vector_dot_product(oc, oc) - sp->radius * sp->radius;
+    v.c = vector_dot_product(oc, oc) - sp->r2;
     v.discr = v.b * v.b - (4.0 * v.a * v.c);
     if (v.discr < 0)
         return (false);
@@ -64,12 +63,12 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
     double          t;
     t_cy_equation   eq;
 
-    eq.x = r->origin - cy->center;
+    eq.x = r->origin - cy->point;
     eq.dv = vector_dot_product(r->direction, cy->axis);
     eq.xv = vector_dot_product(eq.x, cy->axis);
     eq.a = vector_dot_product(r->direction, r->direction) - eq.dv * eq.dv;
     eq.b = vector_dot_product(r->direction, eq.x) - eq.dv * eq.xv;
-    eq.c = vector_dot_product(eq.x, eq.x) - eq.xv * eq.xv - cy->radius * cy->radius;
+    eq.c = vector_dot_product(eq.x, eq.x) - eq.xv * eq.xv - cy->r2;
     eq.discr = eq.b * eq.b - eq.a * eq.c;
     if (eq.discr < 0)
         return (false);
@@ -79,6 +78,7 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
     if (is_inside_cy(hit_point, cy) && check_t(t, t_min))
         return (true);
     t = (-eq.b + eq.discr) / eq.a;
+    hit_point = ray_at(r, t);
     return (is_inside_cy(hit_point, cy) && check_t(t, t_min));
  }
  
@@ -90,10 +90,11 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
     t_point4        hit_point;
 
     k2 = (co->k * co->k) + 1;
-    eq.x = r->origin - co->center;
+    eq.x = r->origin - co->point;
     eq.dv = vector_dot_product(r->direction, co->axis);
     eq.xv = vector_dot_product(eq.x, co->axis);
-    eq.a = vector_dot_product(r->direction, r->direction) - k2 * (eq.dv * eq.dv);
+    eq.a = vector_dot_product(r->direction, r->direction) 
+                - k2 * (eq.dv * eq.dv);
     eq.b = vector_dot_product(r->direction, eq.x) - k2 * eq.dv * eq.xv;
     eq.c = vector_dot_product(eq.x, eq.x) - eq.xv * eq.xv * k2;
     eq.discr = eq.b * eq.b - eq.a * eq.c;
@@ -105,6 +106,7 @@ bool    sphere_hit(const t_object* sp, const t_ray* r, double* t_min)
     if (is_inside_co(hit_point, co) && check_t(t, t_min))
         return (true);
     t = (-eq.b + eq.discr) / eq.a;
+    hit_point = ray_at(r, t);
     return (is_inside_co(hit_point, co) && check_t(t, t_min));
  }
 

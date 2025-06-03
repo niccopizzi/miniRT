@@ -5,7 +5,7 @@ int window_close(t_ptrs *ptrs)
     mlx_destroy_image(ptrs->mlx_ptr, ptrs->img->img_ptr);
     mlx_destroy_window(ptrs->mlx_ptr, ptrs->win_ptr);
     mlx_destroy_display(ptrs->mlx_ptr), free(ptrs->mlx_ptr);
-    free(ptrs->world->objects.data);
+    free_world_data(ptrs->world);
     exit(EXIT_SUCCESS);
 }
 

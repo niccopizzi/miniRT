@@ -1,5 +1,4 @@
 #include "parsing.h"
-#include "miniRT.h"
 
 bool    is_valid_file(char *filename, t_world *world)
 {
@@ -28,13 +27,13 @@ bool    skip_space_and_check(char **line, char *msg)
 {
     if (**line != ' ' && **line != '\t')
     {
-        return (printf("%s %s", msg, MISS_SPACE), false);
+        return (printf("%s%s", msg, MISS_SPACE), false);
     }
     while (**line && ft_isspace(**line))
         *line = *line + 1;
     if (!**line)
     {
-        return(printf("%s %s", msg, MISS_VAL), false);
+        return(printf("%s%s", msg, MISS_VAL), false);
     }
     return (true);
 }

@@ -50,4 +50,13 @@ void    print_world(t_world *world)
     vector_print("Cam origin", world->cam.origin);
 
     printf("Objects size : %zu\n", world->objects.size);
+    t_object*   ptr = (t_object*) world->objects.data;
+
+    for (size_t i = 0; i < world->objects.size; ++i)
+    {
+        printf("Obj[%ld] : %p\n", i, &ptr[i]);
+        vector_print("Point", ptr[i].point);
+        vector_print("Color", ptr[i].color);
+        printf("\n");
+    }
 }

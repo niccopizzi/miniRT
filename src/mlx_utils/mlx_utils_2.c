@@ -39,9 +39,9 @@ void    handle_cam_rotation(int key, t_cam* c)
     else if (key == XK_Down)
         rotate_around_right_axis(-theta, c->right, c);
     else if (key == XK_plus || key == Custom_plus)
-        c->origin += c->forward * 1.5;
+        c->origin += c->forward * 2;
     else if (key == XK_minus || key == Custom_minus)
-        c->origin -= c->forward * 1.5;
+        c->origin -= c->forward * 2;
     c->to_world = camera_to_world(c);
 }
 
@@ -56,8 +56,8 @@ void     handle_cam_movement(int key, t_cam* c)
     else if (key == XK_Down)
         c->origin -= (c->up * 2.f);
     else if (key == XK_plus || key == Custom_plus)
-        c->origin += c->forward * 1.5;
+        c->origin += c->forward * 2;
     else if (key == XK_minus || key == Custom_minus)
-        c->origin -= c->forward * 1.5;
+        c->origin -= c->forward * 2;
     c->to_world = camera_to_world(c);
 }

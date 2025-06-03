@@ -24,6 +24,22 @@ t_mat4  matrix4_rodrigues_rot(t_vec4 axis, double angle)
     return (r);
 }
 
+t_mat4  matrix4_to_world(t_vec4 axis, t_vec4 origin)
+{
+    t_mat4  to_world;
+    t_vec4  tmp_up;
+
+    to_world = matrix4_identity();
+    tmp_up = (t_vec4){0, 1, 0, 0};
+    if (fabs(vector_dot_product(tmp_up, axis)) > 1.0f - EPSILON)
+        tmp_up = (t_vec4){0, 0, 1, 0};
+    to_world.row[0] = vector_normalize(vector_cross_prod(axis, tmp_up));
+    to_world.row[1] = vector_normalize(vector_cross_prod(axis, to_world.row[0]));
+    to_world.row[2] = axis;
+    to_world.row[3] = origin;
+
+    return (to_world);
+}
 t_mat4  matrix4_scaling(float tx, float ty, float tz)
 {
     t_mat4  m;

@@ -38,7 +38,8 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
     obj_ptr = (t_object*)world->objects.data;
     obj_size = world->objects.size;
     i = 0;
-    shadow_ray = ray_create(origin, (info->light_dir), SHADOW);
+    shadow_ray.origin = origin;
+    shadow_ray.direction = info->light_dir;
     while (i < obj_size)
     {
         t = START_VAL;
@@ -50,10 +51,35 @@ bool        is_in_shadow(const t_point4 origin, const t_world* world,
     return (false);
 }
 
+t_color     get_light_contribution(const t_world* w, t_shading* info)
+{
+    t_light*    light_ptr;
+    t_color     ret;
+    size_t      i;
+    size_t      size;
+
+    i = 0;
+    size = w->light.size;
+    light_ptr = (t_light*) w->light.data;
+    ret = info->ret;
+    while (i < size)
+    {
+        info->light_dir = light_ptr[i].pos - info->hit_point;
+        info->distance = vector_len(info->light_dir);
+        info->light_dir /= info->distance;
+        if (!is_in_shadow(info->hit_point + info->normal_at * BIAS, w, info))
+            ret += color_at_hit(info, &light_ptr[i]);
+        i++;
+    }
+    return (ret);
+}
+
 t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
 {
     t_color     ret_color;
     t_shading   info;
+    float       u;
+    float       v;
 
     if (depth > MAX_DEPTH)
         return (vector_from_float(0.0f));
@@ -63,10 +89,13 @@ t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
     if (find_hit(ray, world, &info))
     {
         get_shading_info(&info, ray, world);
-        if (is_in_shadow(info.hit_point + info.normal_at * BIAS, world,
-                &info))
-            return (info.ambient);
-        ret_color = color_at_hit(&info, &world->lights);
+        if (info.obj_hit->checkered)
+        {
+            info.obj_hit->map(info.obj_hit, info.hit_point, &u, &v);
+            if (apply_checker(u, v))
+                return (vector_from_float(0.0f));
+        }
+        ret_color = get_light_contribution(world, &info);
     }
     return (ret_color);
 }

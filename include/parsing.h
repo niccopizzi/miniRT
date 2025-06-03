@@ -3,7 +3,7 @@
 
 #include "../lib/minift/include/minift.h"
 #include "world.h"
-#include "ray.h"
+#include "objects.h"
 #include <string.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -35,13 +35,14 @@
 #define OOR "value out of range\n"
 #define POINT_FORMAT "coordinates not in format x,y,z\n"
 
-#define NO_FILE "no rt file provided\n"
+#define NO_ARG "no arg provided\n"
 #define FILE_NOT_VALID "file not valid\n"
 #define MULT "cannot have more than 1\n"
 #define MISS_VAL "missing values\n"
 #define MISS_DECL "missing declaration\n"
 #define MISS_SPACE "missing space after values\n"
 #define ENDLINE_ERR "expected endline after values\n"
+#define CHECKER_ERR "expected 'c' identifier\n"
 #define MALLOC_ERR "malloc failed\n"
 
 //PARSE UTILS
@@ -56,8 +57,11 @@ bool    check_if_declared(int* declared);
 bool    parse_on_identifier(char* trim, t_world* world, int* declared);
 bool    parse_file(int fd, t_world *world);
 bool    parse_rgb(char **line, t_color *color);
+bool    parse_texture(char** line, t_object* obj, char* msg);
 bool    parse_vector_or_point(char **line, t_vec4* value, 
                                 float point, char *msg);
+
+
 
 bool    parse_sphere(char *line, t_world *world);
 bool    parse_plane(char *line, t_world *world);

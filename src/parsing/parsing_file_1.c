@@ -1,5 +1,4 @@
 #include "parsing.h"
-#include "miniRT.h"
 
 bool    parse_ambient_light(char *line, t_world *world)
 {
@@ -65,16 +64,15 @@ bool    parse_light(char *line, t_world *world)
     line = ft_strtof(line, &l.brightness);
     if (l.brightness < 0 || l.brightness > 1)
         return (printf(ERR LIGHT RATIO OOR), false);
-    if (BONUS && !skip_space_and_check(&line, ERR LIGHT))
+    if (!skip_space_and_check(&line, ERR LIGHT))
         return (false);
-    if (BONUS && !parse_rgb(&line, &l.color))
+    if (!parse_rgb(&line, &l.color))
         return (printf(ERR LIGHT RGB_ERR), false);
     if (*line != 0)
         return (printf(ERR LIGHT ENDLINE_ERR), false);
     l.effective = l.brightness * l.color;
     l.move = false;
-    world->lights = l;
-    return (true);
+    return (da_append(&world->light, &l));
 }
 
 bool    parse_on_identifier(char* trim, t_world* world, int* declared)

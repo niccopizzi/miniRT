@@ -1,16 +1,16 @@
 #include "parsing.h"
-#include "miniRT.h"
 
 bool    parse_sphere(char *line, t_world *world)
 {
     t_object sphere;
 
+    ft_bzero(&sphere, sizeof(t_object));
     sphere.hit = sphere_hit;
     sphere.normal_get = sphere_normal;
-    sphere.father = &sphere;
+    sphere.map = sphere_map;
     if (!skip_space_and_check(&line, ERR SPHERE))
         return (false);
-    if (!parse_vector_or_point(&line, &sphere.center, 1.f, ERR SPHERE CENTER))
+    if (!parse_vector_or_point(&line, &sphere.point, 1.f, ERR SPHERE CENTER))
         return (false);
     if (!skip_space_and_check(&line, ERR SPHERE))
         return (false);
@@ -22,8 +22,9 @@ bool    parse_sphere(char *line, t_world *world)
         return (false);
     if (!parse_rgb(&line, &sphere.color))
         return (printf(ERR SPHERE RGB_ERR), false);
-    if (*line != 0)
-        return (printf(ERR SPHERE ENDLINE_ERR), false);
+    if (!parse_texture(&line, &sphere, ERR SPHERE))
+        return (false);
+    sphere.r2 = sphere.radius * sphere.radius;
     return (da_append(&world->objects, &sphere));
 }
 
@@ -43,8 +44,9 @@ bool    parse_cylinder_two(char *line, t_world *world, t_object* cy)
     cy->half_height *= 0.5;
     if (!parse_rgb(&line, &cy->color))
         return (printf(ERR CYLINDER RGB_ERR), false);
-    if (*line != 0)
-        return (printf(ERR CYLINDER ENDLINE_ERR), false);
+    if (!parse_texture(&line, cy, ERR CYLINDER))
+        return (false);
+    cy->r2 = cy->radius * cy->radius;
     return (cylinder_add_to_objects(cy, world));
 }
 
@@ -52,12 +54,13 @@ bool    parse_cylinder(char *line, t_world *world)
 {
     t_object    cylinder;
 
+    ft_bzero(&cylinder, sizeof(t_object));
     cylinder.hit = cylinder_hit;
     cylinder.normal_get = cylinder_normal;
-    cylinder.father = NULL;
+    cylinder.map = cylinder_map;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
-    if (!parse_vector_or_point(&line, &cylinder.center, 1.f, ERR CYLINDER CENTER))
+    if (!parse_vector_or_point(&line, &cylinder.point, 1.f, ERR CYLINDER CENTER))
         return (false);
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
@@ -73,9 +76,10 @@ bool    parse_plane(char *line, t_world *world)
 {
     t_object    plane;
 
+    ft_bzero(&plane, sizeof(t_object));
     plane.hit = plane_hit;
     plane.normal_get = plane_normal;
-    plane.father = &plane;
+    plane.map = plane_map;
     if (!skip_space_and_check(&line, ERR PLANE))
         return (false);
     if (!parse_vector_or_point(&line, &plane.point, 1.f, ERR PLANE))
@@ -89,7 +93,7 @@ bool    parse_plane(char *line, t_world *world)
         return (false);
     if (!parse_rgb(&line, &plane.color))
         return (printf(ERR PLANE RGB_ERR), false);
-    if (*line != 0)
-        return (printf(ERR PLANE ENDLINE_ERR), false);
+    if (!parse_texture(&line, &plane, ERR PLANE))
+        return (false);
     return (da_append(&world->objects, &plane));
 }

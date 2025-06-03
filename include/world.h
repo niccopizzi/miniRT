@@ -30,11 +30,12 @@ typedef struct s_world t_world;
 
 struct s_world
 {
-    t_color         (*get_color)(int x, int y, const t_world* world, t_ray* r);
+    t_color         (*get_color)(int, int, const t_world*, t_ray*);
     t_color         background;
     t_color         ambient;
     t_light         lights;
     t_cam           cam;
+    t_da            light;
     t_da            objects;
 };
 
@@ -48,6 +49,7 @@ float       get_camera_x(int x, float scale);
 float       get_camera_y(int y, float scale);
 
 void    print_world(t_world *world);
+void    free_world_data(t_world* world);
 
 //Forward declaration
 

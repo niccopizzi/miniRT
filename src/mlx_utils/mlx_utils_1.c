@@ -7,14 +7,14 @@ void connection_init(t_ptrs* ptrs, t_image* img, t_world *world)
     if (!ptrs->mlx_ptr)
     {
         printf("Error in starting the connection to the X Server\n");
-        free(world->objects.data), exit (EXIT_FAILURE);
+        free_world_data(world), exit (EXIT_FAILURE);
     }
     ptrs->win_ptr = mlx_new_window(ptrs->mlx_ptr, WIDTH, HEIGHT, "miniRT");
     if (!ptrs->win_ptr)
     {
         printf("Error in creating the window\n");
         mlx_destroy_display(ptrs->mlx_ptr), free(ptrs->mlx_ptr);
-        free(world->objects.data), exit(EXIT_FAILURE);
+        free_world_data(world), exit(EXIT_FAILURE);
     }
     img->img_ptr = mlx_new_image(ptrs->mlx_ptr, WIDTH, HEIGHT);
     if (!img->img_ptr)
@@ -22,7 +22,7 @@ void connection_init(t_ptrs* ptrs, t_image* img, t_world *world)
         printf("Error in creating the image\n");
         mlx_destroy_window(ptrs->mlx_ptr, ptrs->win_ptr);
         mlx_destroy_display(ptrs->mlx_ptr), free(ptrs->mlx_ptr);
-        free(world->objects.data), exit(EXIT_FAILURE);
+        free_world_data(world), exit(EXIT_FAILURE);
     }
     ptrs->img = img;
     ptrs->world = world;

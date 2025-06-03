@@ -1,5 +1,15 @@
 #include "render.h"
 
+bool     apply_checker(float u, float v)
+{
+    int   real_u;
+    int   real_v;
+
+    real_u = (int)(10 * u);
+    real_v = (int)(5 * v);
+    return (((real_u + real_v) % 2) == 0);
+}
+
 t_color     color_at_hit(t_shading* info, const t_light* l)
 {
     float   lambertian;
@@ -7,16 +17,15 @@ t_color     color_at_hit(t_shading* info, const t_light* l)
     t_vec4  half_way;
     t_color ret;
 
-    ret = info->ambient;
+    ret = info->ret;
     lambertian = fmaxf(0.0f, 
             vector_dot_product(info->normal_at, info->light_dir));
-    ret += info->obj_hit->color * l->effective * lambertian 
-            * info->obj_hit->material[DIFFUSE];
+    ret += info->obj_hit->color * l->effective * lambertian;
     half_way = vector_normalize
                     (info->light_dir + info->hitting_ray->direction);
     specular = fmaxf(0.0f, vector_dot_product(info->normal_at, half_way));
-    specular = powf(specular, info->obj_hit->material[SHININESS]);
-    ret += l->effective * specular * info->obj_hit->material[SPECULAR];
+    specular = powf(specular, 100);
+    ret += l->effective * specular * 200;
     return (ret);
 }
 
@@ -32,9 +41,5 @@ void        get_shading_info(t_shading* shade_info, const t_ray* ray,
         shade_info->normal_at = -shade_info->normal_at;
         shade_info->front_face = false;
     }
-    shade_info->light_dir = (world->lights.pos - shade_info->hit_point);
-    shade_info->distance = vector_len(shade_info->light_dir); 
-    shade_info->light_dir *= (1 / shade_info->distance);
-    shade_info->ambient = world->ambient * shade_info->obj_hit->color *
-                                shade_info->obj_hit->material[AMBIENT];
+    shade_info->ret = shade_info->obj_hit->color * world->ambient;
 }
