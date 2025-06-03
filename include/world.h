@@ -4,9 +4,11 @@
 #include "ray.h"
 #include "../lib/minift/include/minift.h"
 
+#define OBJECTS_CAPACITY 20
+#define LIGHTS_CAPACITY 5
+
 typedef struct s_cam
 {
-    int         rotate;
     float       fov;
     float       scale;
     t_mat4      to_world;
@@ -30,12 +32,12 @@ typedef struct s_world t_world;
 
 struct s_world
 {
+    int             light_moving;
     t_color         (*get_color)(int, int, const t_world*, t_ray*);
     t_color         background;
     t_color         ambient;
-    t_light         lights;
     t_cam           cam;
-    t_da            light;
+    t_da            lights;
     t_da            objects;
 };
 
@@ -48,8 +50,7 @@ void        world_setup(t_world* world);
 float       get_camera_x(int x, float scale);
 float       get_camera_y(int y, float scale);
 
-void    print_world(t_world *world);
-void    free_world_data(t_world* world);
+void        free_world_data(t_world* world);
 
 //Forward declaration
 

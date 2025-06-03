@@ -2,6 +2,9 @@
 #include "matrix.h"
 #include "objects.h"
 
+void        matrix_print(t_mat4 id, int size, char *name);
+void        vector_print(char* name, t_vec4 v);
+
 void    matrix_print(t_mat4 id, int size, char *name)
 {
     printf("\t\tPRINTING MATRIX : %s\n", name);

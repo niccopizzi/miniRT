@@ -18,6 +18,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/mlx_utils/reload.c				 	\
 				./src/mlx_utils/mlx_utils_1.c				\
 				./src/mlx_utils/mlx_utils_2.c				\
+				./src/mlx_utils/mlx_utils_3.c				\
 				./src/objects/hit_functions_utils_1.c		\
 				./src/objects/hit_functions.c				\
 				./src/objects/normal_functions.c			\
@@ -35,8 +36,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/rendering/scene_render.c				\
 				./src/rendering/trace.c						\
 				./src/rendering/shading.c					\
-				./src/testing/print_utils.c
-
+				./src/usage_print.c
 all: $(NAME)
 
 $(NAME): $(MY_SOURCES)

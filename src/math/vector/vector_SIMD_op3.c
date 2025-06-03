@@ -24,13 +24,3 @@ inline  t_vec4      vector_from_array(const float *array)
 {
     return (_mm_load_ps(array));
 }
-/* 
-inline  float   vector_get_element(t_vec4 vector, int index, int mask)
-{
-    t_vec4      tmp;
-
-    if (index == 0)
-       return ( _mm_cvtss_f32(vector));
-    tmp = _mm_shuffle_ps(vector, vector, mask);
-    return (_mm_cvtss_f32(tmp));
-} */

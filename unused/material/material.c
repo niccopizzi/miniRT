@@ -1,5 +1,29 @@
 #include "material.h"
 #include "render.h"
+
+/*
+ void   object_material_setup(t_object* obj, t_material  material)
+{
+    obj->material = material;
+}
+*/
+
+/* void    objects_setup(t_object* ptr, size_t size)
+{
+    size_t  i;
+    t_mat4  to_world;
+
+    i = 0;
+    while (i < size)
+    {
+        to_world = 
+        (ptr + i)->to_obj = matrix4_inv
+        i++;
+    }
+}  */
+
+//objects_setup((t_object* )world->objects.data, world->objects.size);
+
 /* 
 t_ray      diffuse_bounce(const t_ray* r, const t_shading* info)
 {

@@ -72,8 +72,9 @@ void    da_pop(t_da *da);
  */
 void    da_swap(t_da *da, size_t pos1, size_t pos2);
 
-bool	ft_isspace(char c);
 int	    ft_atoi(const char *nptr);
+bool	ft_isspace(char c);
+char	*ft_itoa(int n);
 char	*ft_strtrim(char const *s1, char const *set);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 int	    get_next_line(int fd, char **line);

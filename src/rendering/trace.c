@@ -59,30 +59,28 @@ t_color     get_light_contribution(const t_world* w, t_shading* info)
     size_t      size;
 
     i = 0;
-    size = w->light.size;
-    light_ptr = (t_light*) w->light.data;
-    ret = info->ret;
+    size = w->lights.size;
+    light_ptr = (t_light*) w->lights.data;
+    ret = info->ambient;
     while (i < size)
     {
-        info->light_dir = light_ptr[i].pos - info->hit_point;
+        info->light_dir = light_ptr[i].pos - info->point_hit;
         info->distance = vector_len(info->light_dir);
         info->light_dir /= info->distance;
-        if (!is_in_shadow(info->hit_point + info->normal_at * BIAS, w, info))
+        if (!is_in_shadow(info->point_hit + info->normal_at * BIAS, w, info))
             ret += color_at_hit(info, &light_ptr[i]);
         i++;
     }
     return (ret);
 }
 
-t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
+t_color     ray_trace(const t_ray* ray, const t_world* world)
 {
     t_color     ret_color;
     t_shading   info;
     float       u;
     float       v;
 
-    if (depth > MAX_DEPTH)
-        return (vector_from_float(0.0f));
     info.obj_hit = NULL;
     info.t = START_VAL;
     ret_color = world->background;
@@ -91,7 +89,7 @@ t_color     ray_trace(const t_ray* ray, const t_world* world, int depth)
         get_shading_info(&info, ray, world);
         if (info.obj_hit->checkered)
         {
-            info.obj_hit->map(info.obj_hit, info.hit_point, &u, &v);
+            info.obj_hit->map(info.obj_hit, info.point_hit, &u, &v);
             if (apply_checker(u, v))
                 return (vector_from_float(0.0f));
         }

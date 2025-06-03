@@ -9,13 +9,10 @@
 
 typedef struct s_world t_world;
 
-void    create_seed(void);
-
-float   generate_random_x(int x, float scale);
-float   generate_random_y(int y, float scale);
-
-t_vec4  random_unit_vector(float min, float max);
-
+void        create_seed(void);
+float       generate_random_x(int x, float scale);
+float       generate_random_y(int y, float scale);
+t_vec4      random_unit_vector(float min, float max);
 t_color     sample_pixel(int x, int y, const t_world* world, t_ray* r);
 
 #endif

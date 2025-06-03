@@ -44,7 +44,6 @@ bool    parse_camera(char *line, t_world *world)
         line++;
     if (*line != 0)
         return (printf(ERR CAM ENDLINE_ERR), false);
-    c.rotate = false;
     world->cam = c;
     return (true);
 }
@@ -72,7 +71,7 @@ bool    parse_light(char *line, t_world *world)
         return (printf(ERR LIGHT ENDLINE_ERR), false);
     l.effective = l.brightness * l.color;
     l.move = false;
-    return (da_append(&world->light, &l));
+    return (da_append(&world->lights, &l));
 }
 
 bool    parse_on_identifier(char* trim, t_world* world, int* declared)

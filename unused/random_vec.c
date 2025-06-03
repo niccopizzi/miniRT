@@ -28,3 +28,14 @@ t_vec4  random_vector_on_hemisphere(t_vec4 normal)
         return (-random_vec);
     return (random_vec);
 }
+
+/* 
+inline  float   vector_get_element(t_vec4 vector, int index, int mask)
+{
+    t_vec4      tmp;
+
+    if (index == 0)
+       return ( _mm_cvtss_f32(vector));
+    tmp = _mm_shuffle_ps(vector, vector, mask);
+    return (_mm_cvtss_f32(tmp));
+} */

@@ -2,23 +2,24 @@
 
 void    render_ui(t_ptrs* ptrs, t_world* world)
 {
+    char* num;
+
     mlx_put_image_to_window(ptrs->mlx_ptr, ptrs->win_ptr, 
                                 ptrs->img->img_ptr, 0, 0);
-    if (world->cam.rotate)
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, 
-                    "CAMERA ROTATION ACTIVE");
-    else
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 20, 0xFFFFFF, 
-                    "CAMERA TRANSLATION ACTIVE");
     if (world->get_color == calculate_color)
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 40, 40, 0xFFFFFF,
+        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 40, 0xFFFFFF,
                     "ANTIALIASING OFF");
     else
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 40, 40, 0xFFFFFF,
+        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20, 40, 0xFFFFFF,
                     "ANTIALIASING ON");
-    if (world->lights.move)
-        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 60 , 60, 0xFFFFFF,
-                    "LIGHT MOVEMENT ACTIVE");
+    if (world->light_moving >= 0)
+    {
+        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 20 , 60, 0xFFFFFF,
+                    "LIGHT MOVEMENT ACTIVE : ");
+        num = ft_itoa(world->light_moving);
+        mlx_string_put(ptrs->mlx_ptr, ptrs->win_ptr, 165, 61, 0xFFFFFF, num);
+        free(num);
+    }
 }
 
 t_color     calculate_color(int x, int y, const t_world* world, t_ray* r)
@@ -32,7 +33,7 @@ t_color     calculate_color(int x, int y, const t_world* world, t_ray* r)
                             ,(1 - 2 * ((y + 0.5) / HEIGHT)) * scale,
                             -1, 1});
     r->direction = vector_normalize(world_point - r->origin);
-    return (ray_trace(r, world, 0));
+    return (ray_trace(r, world));
 }
 
 

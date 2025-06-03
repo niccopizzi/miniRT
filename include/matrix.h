@@ -21,7 +21,7 @@ typedef union u_mat2
 
 typedef t_mat4  t_mat3;
 
-void        matrix_print(t_mat4 id, int size, char *name);
+
 
 t_mat4      matrix4_identity(void);
 t_mat4      matrix4_transpose(t_mat4 m);
@@ -34,7 +34,6 @@ float       matrix4_det(const t_mat4* m);
 bool        matrix4_compare_eq(const t_mat4* m1, const t_mat4* m2);
 
 
-t_mat4      matrix4_view_transform(t_point4 from, t_vec4 forward, t_vec4 up);
 t_mat4      matrix4_shearing(const float* values);
 t_mat4      matrix4_rotate_x(float  rad);
 t_mat4      matrix4_rotate_y(float  rad);

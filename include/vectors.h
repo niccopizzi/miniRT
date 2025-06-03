@@ -42,6 +42,5 @@ t_vec4      vector_clamp(t_vec4 v, float min, float max);
 
 t_point4    lerp(t_point4 p1, t_point4 p2, float a);
 
-void    vector_print(char* name, t_vec4 v);
 
 #endif

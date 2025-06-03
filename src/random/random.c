@@ -41,7 +41,7 @@ t_color    sample_pixel(int x, int y, const t_world* world, t_ray* r)
                         (1 - 2 * ((y + (drand48() - 0.5)) / HEIGHT)) 
                             * scale, -1, 1});
         r->direction = vector_normalize(world_point - r->origin);
-        sampled_color += ray_trace(r, world, 0);
+        sampled_color += ray_trace(r, world);
         i++;
     }
     return (sampled_color / (float)SAMPLE_SIZE);

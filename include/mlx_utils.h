@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:12:26 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/03 00:44:39 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/03 20:39:45 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #define HEIGHT 1020
 #define IMG_RATIO (float)WIDTH / HEIGHT
 
-#define Custom_plus 65451
-#define Custom_minus 65453
+#define KEY_PLUS 65451
+#define KEY_MINUS 65453
 
 typedef struct s_image
 {
@@ -56,9 +56,13 @@ int     reload(t_ptrs* ptrs);
 
 void    rotate_around_up_axis(float theta, t_vec4 axis, t_cam* c);
 void    rotate_around_right_axis(float theta, t_vec4 axis, t_cam* c);
-void    handle_cam_rotation(int key, t_cam* c);
-void    handle_cam_movement(int key, t_cam* c);
-void    toggle_antialiasing(t_world* world);
+void    handle_cam_zoom(int key, t_cam* c, t_ptrs* ptrs);
+void    handle_light_movement(int x, int y, t_world* world);
+void    handle_l_key(t_ptrs* ptrs, t_world* world);
+void    handle_tab_key(t_ptrs* ptrs, t_world* world);
+void    handle_cam_rotation(int key, t_cam* c, t_ptrs* ptrs);
+void    handle_cam_movement(int key, t_cam* c, t_ptrs* ptrs);
+void    toggle_antialiasing(t_ptrs* ptrs, t_world* world);
 
 //Forward declarations
 void    render_scene(t_ptrs* ptrs, t_world* world);

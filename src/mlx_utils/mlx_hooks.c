@@ -12,44 +12,35 @@ int window_close(t_ptrs *ptrs)
 int    keys_hook(int key, t_ptrs* ptrs)
 {
     if (key == XK_Escape)
-        return (window_close(ptrs));
-    if (key == XK_r)
+        window_close(ptrs);
+    else if (key == XK_r)
         return (reload(ptrs));
-    if (key == XK_c)
-        ptrs->world->cam.rotate = !ptrs->world->cam.rotate;
-    else if (key == XK_a)
-        toggle_antialiasing(ptrs->world);
+    else if (key == XK_space)
+        toggle_antialiasing(ptrs, ptrs->world);
+    else if (key == XK_Tab)
+        handle_tab_key(ptrs, ptrs->world);
     else if (key == XK_l)
-        ptrs->world->lights.move = !ptrs->world->lights.move;
-    else if (ptrs->world->cam.rotate)
-        handle_cam_rotation(key, &ptrs->world->cam);
-    else
-        handle_cam_movement(key, &ptrs->world->cam);
-    render_scene(ptrs, ptrs->world);
-    return (1);
+        handle_l_key(ptrs, ptrs->world);
+    else if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
+        handle_cam_movement(key, &ptrs->world->cam, ptrs);
+    else if (key == XK_Left || key == XK_Right || key == XK_Up
+                || key == XK_Down)
+        handle_cam_rotation(key, &ptrs->world->cam, ptrs);
+    else if (key == XK_minus || key == KEY_MINUS || key == XK_plus 
+                || key == KEY_PLUS)
+        handle_cam_zoom(key, &ptrs->world->cam, ptrs);
+    return (0);
 }
 
 
 int     mouse_hook(int button, int x, int y, t_ptrs* ptrs)
 {
-    t_vec4      dir;
-    t_point4    p;
-    float       t;
-    
-    if (button == 1 && ptrs->world->lights.move)
+    if (button == 1 && ptrs->world->light_moving >= 0)
     {
-        dir = vector_normalize((t_vec4){
-            get_camera_x(x, ptrs->world->cam.scale),
-            get_camera_y(y, ptrs->world->cam.scale), 
-            ptrs->world->cam.forward[2], 0});
-        dir = matrix4_mult_vec4(&ptrs->world->cam.to_world, dir);
-        t = (ptrs->world->lights.pos[2] - ptrs->world->cam.origin[2]) / dir[2];
-        p = ptrs->world->cam.origin + t * dir;
-        ptrs->world->lights.pos[0] = p[0];
-        ptrs->world->lights.pos[1] = p[1];
+        handle_light_movement(x, y, ptrs->world);
         render_scene(ptrs, ptrs->world);
     }
-    return (1);
+    return (0);
 }
 
 void    hooks_set_up(t_ptrs* ptrs)
