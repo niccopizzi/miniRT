@@ -6,17 +6,11 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:36:56 by thopgood          #+#    #+#             */
-/*   Updated: 2025/05/30 09:11:29 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/14 14:16:39 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minift.h"
-
-/*
- * Returns a malloc allocated copy of s1 with the chars from set removed
- * from the beginning and end.
- * Returns a ptr to the trimmed string or NULL if it fails
- */
 
 static size_t	ft_offsetstart(const char *str, char const *set)
 {
@@ -54,18 +48,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	s_len = s_len - offset_start - offset_end;
 	return (ft_substr(s1, offset_start, s_len));
 }
-
-/* #include <stdio.h>
-
-int	main(void)
-{
-	char const	*set;
-	char const	*str;
-	char		*out;
-
-	set = "a";
-	str = "";
-	out = NULL;
-	out = ft_strtrim(str, set);
-	ft_printf("%s\n", out);
-} */

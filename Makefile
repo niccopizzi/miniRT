@@ -25,7 +25,7 @@ MY_SOURCES = ./src/main.c 			\
 				./src/objects/map_functions.c				\
 				./src/objects/object_utils_1.c				\
 				./src/world/camera.c						\
-				./src/world/world_setup.c					\
+				./src/world/world.c							\
 				./src/parsing/parsing_file_1.c			 	\
 				./src/parsing/parsing_file_2.c			 	\
 				./src/parsing/parsing_file_3.c			 	\

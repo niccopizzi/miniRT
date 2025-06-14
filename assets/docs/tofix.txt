@@ -1,4 +1,0 @@
-- CAP CYLINDER 
-- CAMERA IS MIRRORED (Light shows on the right when is on the left)
-- ROTATION IS NOT WORKING correctly
-- NORMALS ARE NOT CORRECT

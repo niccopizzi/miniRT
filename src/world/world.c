@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 14:16:29 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/14 14:16:30 by npizzi           ###   ########.fr       */
+/*   Created: 2025/06/14 14:27:31 by npizzi            #+#    #+#             */
+/*   Updated: 2025/06/14 14:27:32 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minift.h"
+#include "objects.h"
+#include "world.h"
 
-/*
- * Compares string s1 with string s2 for n bytes or until characters differ.
- * Returns difference between s1 and s2.
- */
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	free_world_data(t_world *world)
 {
-	if (n != 0)
+	if (world->objects.data)
 	{
-		while (*s1 == *s2 && *s1 && --n)
-		{
-			s1++;
-			s2++;
-		}
-		return ((unsigned char)(*s1) - (unsigned char)(*s2));
+		free(world->objects.data);
+		world->objects.data = NULL;
 	}
-	return (0);
+	if (world->lights.data)
+	{
+		free(world->lights.data);
+		world->lights.data = NULL;
+	}
+}
+
+void	world_setup(t_world *world)
+{
+	world->get_color = calculate_color;
+	camera_setup(&world->cam);
 }
