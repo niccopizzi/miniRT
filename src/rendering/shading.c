@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:25:53 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/14 14:39:10 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/14 15:45:45 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ t_color	color_at_hit(t_shading *info, const t_light *l)
 {
 	float	lambertian;
 	float	specular;
-	t_vec4	half_way;
+	t_vec4	reflected;
 	t_color	ret;
 
 	ret = info->ambient;
 	lambertian = fmaxf(0.0f, vector_dot_product(info->normal_at,
 				info->light_dir));
 	ret += info->obj_hit->color * l->effective * lambertian;
-	half_way = vector_normalize(info->light_dir + info->hitting_ray->direction);
-	specular = fmaxf(0.0f, vector_dot_product(info->normal_at, half_way));
+	reflected = vector_reflect(info->light_dir, info->normal_at);
+	specular = fmaxf(0.0f, vector_dot_product(info->normal_at, reflected));
 	specular = powf(specular, 100);
-	ret += l->effective * specular * 200;
+	ret += info->obj_hit->color * l->effective * specular * 16;
 	return (ret);
 }
 
