@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:27:31 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/14 15:48:18 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/15 01:07:16 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	free_world_data(t_world *world)
 void	world_setup(t_world *world)
 {
 	world->get_color = calculate_color;
-    world->light_moving = -1;
+	world->light_moving = -1;
 	camera_setup(&world->cam);
 }

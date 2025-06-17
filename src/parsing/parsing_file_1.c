@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:24:31 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/14 14:24:32 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/15 01:03:28 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ bool	parse_light(char *line, t_world *world)
 
 bool	parse_on_identifier(char *trim, t_world *world, int *declared)
 {
-	if (!trim[0])
+	if (!trim[0] || (trim[0] == '/' && trim[1] == '/'))
 		return (true);
 	if (trim[0] == 'A' && trim[1] == ' ')
 	{

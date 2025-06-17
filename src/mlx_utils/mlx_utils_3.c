@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:22:19 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/14 15:24:39 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/15 01:12:01 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	handle_light_movement(int x, int y, t_world *world)
 	dir = matrix4_mult_vec4(&world->cam.to_world, dir);
 	t = (light->pos[2] - world->cam.origin[2]) / dir[2];
 	p = world->cam.origin + t * dir;
-	light->pos[0] = p[0];
-	light->pos[1] = p[1];
+	light->pos[0] = -p[0];
+	light->pos[1] = -p[1];
 }

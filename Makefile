@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -Warray-bounds --fast-math  -msse2 -march=native -mavx2 -O2 -I./include
+CFLAGS = -Wall -Wextra -Werror -Warray-bounds -ffast-math  -msse2 -march=native -mavx2 -O2 -I./include
 NAME = miniRT
 
 LIBFT_DIR = ./lib/minift
@@ -40,7 +40,7 @@ MY_SOURCES = ./src/main.c 			\
 all: $(NAME)
 
 $(NAME): $(MY_SOURCES)
-	@make -j4 -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 	@cc $(CFLAGS) $(MY_SOURCES) $(LIB) -o $(NAME) 
 	@echo "... Amazing! I managed to compile $(NAME)"
 

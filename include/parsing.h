@@ -6,7 +6,7 @@
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 13:34:10 by npizzi            #+#    #+#             */
-/*   Updated: 2025/06/14 13:38:59 by npizzi           ###   ########.fr       */
+/*   Updated: 2025/06/15 01:06:45 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define OOR "value out of range\n"
 # define POINT_FORMAT "coordinates not in format x,y,z\n"
 
-# define NO_ARG "no arg provided\n"
+# define NO_ARG "no arguments provided\n"
 # define FILE_NOT_VALID "file not valid\n"
 # define MULT "cannot have more than 1\n"
 # define MISS_VAL "missing values\n"
