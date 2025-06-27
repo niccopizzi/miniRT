@@ -36,12 +36,13 @@ void	render_ui(t_ptrs *ptrs, t_world *world)
 
 t_color	calculate_color(int x, int y, const t_world *world, t_ray *r)
 {
-	t_point4	world_point;
-	float		scale;
+	t_point4			world_point;
+	static const float	img_ratio = (float) WIDTH / HEIGHT;
+	float				scale;
 
 	scale = world->cam.scale;
 	world_point = matrix4_mult_vec4(&world->cam.to_world, (t_vec4){(2 * ((x
-						+ 0.5) / WIDTH) - 1) * scale * IMG_RATIO, (1 - 2 * ((y
+						+ 0.5) / WIDTH) - 1) * scale * img_ratio, (1 - 2 * ((y
 						+ 0.5) / HEIGHT)) * scale, -1, 1});
 	r->direction = vector_normalize(world_point - r->origin);
 	return (ray_trace(r, world));
